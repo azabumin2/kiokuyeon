@@ -1,9 +1,9 @@
 // Firebase project settings (Firebase console → Project settings → Your apps → Web app → Config).
 // These values identify the project; they are not secrets. Data is protected by firestore.rules.
-// Firebase 콘솔 → 프로젝트 설정 → 내 앱(웹) → 구성 값을 그대로 붙여 넣으세요.
 window.FIREBASE_CONFIG = {
-  apiKey: 'REPLACE_WITH_API_KEY',
-  authDomain: 'REPLACE.firebaseapp.com',
-  projectId: 'REPLACE',
-  appId: 'REPLACE',
+  apiKey: 'AIzaSyBb6NDYRfNeEwo7uJN1nHr0dp_1urfbXEs',
+  authDomain: 'kiokuyeon.firebaseapp.com',
+  projectId: 'kiokuyeon',
+  appId: '1:131626121272:web:4db0207d7fa6e94b32cecd',
+  messagingSenderId: '131626121272',
 };
