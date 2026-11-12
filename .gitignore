@@ -1,0 +1,6 @@
+# Never commit member data or local tool output
+*.csv
+*.xlsx
+*.log
+.firebase/
+node_modules/
