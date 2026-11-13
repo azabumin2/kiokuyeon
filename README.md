@@ -4,8 +4,8 @@ GitHub Pages(화면) + Firebase(Google 로그인·Firestore 데이터 저장)로
 
 | 화면 | 주소 | 사용하는 사람 |
 |---|---|---|
-| 회원 등록 | `index.html` | 일반 남성·여성 회원. Google 로그인 후 본인 프로필·사진 등록, 진행 상황 확인, 수정 요청 시 재제출. **문의·상담 예약·신고** 보내기와 답변 확인, 직원이 **소개한 상대** 확인 후 「만나 보고 싶음/사양」 응답 |
-| 관리자 화면 | `admin.html` | 직원. 등록 신청 검토(승인·수정 요청·반려), 남녀 회원 목록·검색·상세·편집, 상담·교제 기록, 사진 관리. **미확인 문의·상담 배지**(신고는 빨간색), **소개하기**와 응답 현황(양쪽 수락 시 「만남 조율 필요」), **이용 정지·소개 제외**, 회원별 **활동 이력** |
+| 회원 등록 | `https://kiokuyeon.com/` (`index.html`) | 일반 남성·여성 회원. Google 로그인 후 본인 프로필·사진 등록, 진행 상황 확인, 수정 요청 시 재제출. **문의·상담 예약·신고** 보내기와 답변 확인, 직원이 **소개한 상대** 확인 후 「만나 보고 싶음/사양」 응답 |
+| 관리자 화면 | `https://kiokuyeon.com/admin.html` | 직원. 등록 신청 검토(승인·수정 요청·반려), 남녀 회원 목록·검색·상세·편집, 상담·교제 기록, 사진 관리. **미확인 문의·상담 배지**(신고는 빨간색), **소개하기**와 응답 현황(양쪽 수락 시 「만남 조율 필요」), **이용 정지·소개 제외**, 회원별 **활동 이력** |
 
 알림은 화면 배지 방식입니다(관리자·회원 화면을 열어 두면 실시간 반영, 브라우저 탭 제목에 건수 표시). 이메일·푸시 알림은 Firebase 유료 요금제(Blaze) 또는 별도 메일 서비스가 필요해 이번에는 넣지 않았습니다.
 
@@ -33,7 +33,7 @@ GitHub Pages(화면) + Firebase(Google 로그인·Firestore 데이터 저장)로
 3. **Firestore Database** → 데이터베이스 만들기 → 위치 `asia-northeast1 (Tokyo)` → 프로덕션 모드.
 4. Firestore → **규칙** 탭에 이 저장소의 `firestore.rules` 내용을 붙여 넣고 **게시**.
 5. 프로젝트 설정 → 내 앱 → 웹 앱 추가(`</>`) → 표시되는 `firebaseConfig` 값을 `assets/firebase-config.js`에 입력.
-6. Authentication → 설정 → **승인된 도메인**에 `azabumin2.github.io` 추가 (도메인 연결 후 `kiokuyeon.com`, `www.kiokuyeon.com`도 추가).
+6. Authentication → 설정 → **승인된 도메인**에 `azabumin2.github.io`, `kiokuyeon.com`, `www.kiokuyeon.com` 추가 (2026-11-14 추가 완료).
 
 `firebase-config.js`의 값은 프로젝트 식별용이라 공개되어도 괜찮습니다. 데이터 보호는 보안 규칙이 담당합니다.
 
@@ -44,11 +44,13 @@ GitHub Pages(화면) + Firebase(Google 로그인·Firestore 데이터 저장)로
 
 ### 3. GitHub Pages 공개
 저장소 Settings → Pages → Source: **Deploy from a branch**, Branch: `main` / `(root)` → Save.
-몇 분 뒤 `https://azabumin2.github.io/kiokuyeon/` 에서 열립니다.
+공개 주소는 **https://kiokuyeon.com/** 입니다(저장소의 `CNAME` 파일). 예전 주소 `https://azabumin2.github.io/kiokuyeon/`로 들어오면 자동으로 새 주소로 넘어갑니다.
 
-## お名前.com 도메인 연결 (도메인 등록 후)
+## お名前.com 도메인 연결 (2026-11-14 완료)
 
-1. お名前.com Navi → ドメイン → **DNS設定** → kiokuyeon.com → DNSレコード設定에서 다음을 추가
+현재 설정: 네임서버 `01〜04.dnsv.jp`(お名前.com DNS레코드設定). 렌탈 서버는 해지 신청함(세트 신청 때문에 도메인이 1엔·「永久無料」였으므로 2027-11 갱신 때 요금 확인 필요). .com 도메인은 등록자 메일 인증(ドメイン情報認証)을 하지 않으면 「利用制限中」(clientHold)이 됩니다.
+
+1. お名前.com Navi → ドメイン → **DNS設定/転送設定** → kiokuyeon.com → DNSレコード設定에서 다음을 추가 (TTL 3600)
 
    | ホスト名 | TYPE | VALUE |
    |---|---|---|
