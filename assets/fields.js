@@ -67,7 +67,7 @@
 
   // Admin-only fields stored on the managed member record.
   const ADMIN = [
-    { k: 'status', ja: '会員ステータス', ko: '회원 상태', type: 'select', opts: [o('active', '活動中', '활동 중'), o('paused', '休会', '휴회'), o('closed', '退会', '탈퇴')] },
+    { k: 'status', ja: '会員ステータス', ko: '회원 상태', type: 'select', opts: [o('active', '活動中', '활동 중'), o('paused', '休会', '휴회'), o('closed', '退会', '탈퇴'), o('suspended', '利用停止', '이용 정지')] },
     { k: 'assigned', ja: '担当者', ko: '담당자', type: 'text', max: 60 },
     { k: 'identity', ja: '本人確認', ko: '본인 확인', type: 'select', opts: YESNO_CHECK },
     { k: 'single', ja: '独身・婚姻関係書類', ko: '독신·혼인관계 서류', type: 'select', opts: YESNO_CHECK },
@@ -94,6 +94,17 @@
     ]},
   };
 
+  // Inquiries from members to staff.
+  const INQUIRY_KINDS = [o('question', '1対1のお問い合わせ', '1:1 문의'), o('booking', '相談の予約', '상담 예약'), o('report', '通報（不適切な連絡など）', '신고（부적절한 연락 등）')];
+  const BOOKING_METHODS = [o('visit', '来店', '방문'), o('phone', '電話', '전화'), o('video', 'ビデオ通話', '화상 통화')];
+  const INQUIRY_STATUS = [o('new', '未確認', '미확인'), o('open', '対応中', '처리 중'), o('done', '完了', '완료')];
+  // Introduction responses and outcomes.
+  const RESP = [o('pending', '回答待ち', '응답 대기'), o('yes', '会ってみたい', '만나 보고 싶음'), o('no', '見送り', '사양'), o('na', 'スタッフが確認', '직원 확인')];
+  const INTRO_OUTCOMES = [o('meeting', 'お見合い・面会へ', '맞선·만남 진행'), o('dating', '交際へ', '교제로 진행'), o('declined', '不成立', '불성립'), o('suspended', '利用停止により終了', '이용 정지로 종료'), o('other', 'その他', '기타')];
+  // Profile fields copied to the partner's introduction card (never name, contact details,
+  // or the free-text message, which members also use for private notes to staff).
+  const INTRO_CARD_FIELDS = ['height', 'employmentStatus', 'jobDetails', 'hobbies', 'selfPersonality', 'langLevel', 'residenceAfter'];
+
   function forGender(fields, g) { return fields.filter((f) => !f.g || f.g === g); }
   function label(f, g, lang) {
     if (f.lab) return (f.lab[g] || f.lab.f)[lang];
@@ -103,5 +114,8 @@
     const hit = (f.opts || []).find((x) => x.code === code);
     return hit ? hit[lang] : (code == null ? '' : String(code));
   }
-  window.KF = { SECTIONS, ADMIN, RECORD_TYPES, forGender, label, optionLabel };
+  function field(k) { for (const s of SECTIONS) { const f = s.fields.find((x) => x.k === k); if (f) return f; } return null; }
+  function opt(list, code, lang) { const hit = list.find((x) => x.code === code); return hit ? hit[lang] : (code || ''); }
+  window.KF = { SECTIONS, ADMIN, RECORD_TYPES, INQUIRY_KINDS, BOOKING_METHODS, INQUIRY_STATUS, RESP, INTRO_OUTCOMES, INTRO_CARD_FIELDS,
+    forGender, label, optionLabel, field, opt };
 })();

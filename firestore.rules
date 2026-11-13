@@ -59,6 +59,62 @@ service cloud.firestore {
       match /records/{recordId} {
         allow read, write: if isAdmin();
       }
+      match /activity/{activityId} {
+        allow read, write: if isAdmin();
+      }
+    }
+
+    // Suspended accounts (applications/{uid}.suspended, set only by staff) cannot send or answer anything.
+    function activeAccount() {
+      return signedIn() && exists(appPath(request.auth.uid))
+        && get(appPath(request.auth.uid)).data.get('suspended', false) != true;
+    }
+
+    // 1:1 inquiries, consultation bookings and reports from members to staff.
+    match /inquiries/{id} {
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow create: if activeAccount()
+        && request.resource.data.keys().hasOnly(['uid', 'kind', 'subject', 'body', 'booking', 'introId', 'status', 'memberSeen', 'name', 'gender', 'lang', 'createdAt', 'updatedAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.kind in ['question', 'booking', 'report']
+        && request.resource.data.status == 'new'
+        && request.resource.data.memberSeen == true
+        && request.resource.data.subject is string && request.resource.data.subject.size() <= 200
+        && request.resource.data.body is string && request.resource.data.body.size() > 0 && request.resource.data.body.size() <= 2000
+        && request.resource.data.name is string && request.resource.data.name.size() <= 100
+        && request.resource.data.gender in ['female', 'male']
+        && request.resource.data.lang in ['ja', 'ko']
+        && request.resource.data.get('booking', {}) is map && request.resource.data.get('booking', {}).size() <= 3
+        && request.resource.data.get('introId', '') is string && request.resource.data.get('introId', '').size() <= 40
+        && request.resource.data.createdAt == request.time && request.resource.data.updatedAt == request.time;
+      // Members may only mark a staff reply as read.
+      allow update: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['memberSeen'])
+        && request.resource.data.memberSeen == true);
+      allow delete: if isAdmin();
+    }
+
+    // Introductions made by staff. Each member may answer only their own side, once, while the intro is open.
+    function respOk(before, after) { return after == before || (before == 'pending' && after in ['yes', 'no']); }
+    function sideUpdate(s) {
+      let d = request.resource.data;
+      let changed = d.diff(resource.data).affectedKeys();
+      return resource.data['uid' + s] == request.auth.uid
+        && changed.hasOnly(['resp' + s, 'resp' + s + 'At', 'seen' + s])
+        && respOk(resource.data['resp' + s], d['resp' + s])
+        && (!changed.hasAny(['resp' + s]) || d['resp' + s + 'At'] == request.time)
+        && d['seen' + s] is bool;
+    }
+    match /intros/{id} {
+      allow read: if isAdmin() || (signedIn() && request.auth.uid in resource.data.uids);
+      allow update: if isAdmin() || (activeAccount() && resource.data.status == 'open' && (sideUpdate('A') || sideUpdate('B')));
+      allow create, delete: if isAdmin();
+    }
+
+    // What each side is shown about the partner (no name or contact details). Written by staff only.
+    match /introCards/{id} {
+      allow read: if isAdmin() || (signedIn() && resource.data.viewerUid == request.auth.uid);
+      allow write: if isAdmin();
     }
 
     match /{document=**} {

@@ -71,6 +71,23 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); ou
 .badge.rejected, .badge.closed { background: #eee; color: var(--muted); }
 .badge.paused { background: #eef0f7; color: #4a5684; }
 
+.badge.suspended, .badge.no, .badge.report { background: #fdecea; color: var(--bad); }
+.badge.new, .badge.pending { background: #fff3dc; color: var(--warn); }
+.badge.open { background: #eef0f7; color: #4a5684; }
+.badge.done, .badge.yes { background: #e3f3eb; color: var(--ok); }
+.count { display: inline-block; min-width: 1.5em; margin-left: 6px; padding: 0 6px; border-radius: 999px; background: var(--warn); color: #fff; font-size: .75rem; line-height: 1.5em; text-align: center; font-weight: 700; }
+.count.red { background: var(--bad); }
+.introcard { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: start; }
+.introcard img, .introcard .ph { width: 140px; height: 140px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); }
+.introcard .ph { display: grid; place-items: center; color: var(--muted); font-size: .85rem; border-style: dashed; }
+.staffnote { background: var(--accent-soft); border-radius: 8px; padding: 10px 12px; margin-top: 12px; white-space: pre-wrap; }
+.reply { background: #f3f7f5; border-left: 3px solid var(--ok); padding: 8px 12px; margin-top: 8px; white-space: pre-wrap; }
+.item { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.item:last-child { border-bottom: 0; }
+.item .body { white-space: pre-wrap; word-break: break-word; margin: 6px 0 0; }
+.timeline .record { border-left-color: var(--line); }
+.timeline .record.staff { border-left-color: var(--accent); }
+.timeline .record.member { border-left-color: var(--ok); }
 .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 12px; }
 .tabs a { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); text-decoration: none; color: var(--ink); background: var(--surface); }
 .tabs a.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
@@ -97,4 +114,5 @@ footer { text-align: center; color: var(--muted); font-size: .8rem; padding: 24p
   dl.view { grid-template-columns: 1fr; }
   dl.view dd { margin-bottom: 8px; }
   .hero h1 { font-size: 1.35rem; }
+  .introcard { grid-template-columns: 1fr; }
 }

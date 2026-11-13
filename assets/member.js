@@ -25,10 +25,53 @@
     thanks: { ja: 'ご登録ありがとうございました。担当スタッフからのご連絡をお待ちください。', ko: '등록해 주셔서 감사합니다. 담당자의 연락을 기다려 주세요.' },
     adminLink: { ja: 'スタッフ用ページ', ko: '직원용 페이지' },
     signedInAs: { ja: 'ログイン中：', ko: '로그인: ' },
+    tabMine: { ja: '登録内容', ko: '내 등록' },
+    tabAsk: { ja: 'お問い合わせ・相談', ko: '문의·상담' },
+    tabIntros: { ja: 'ご紹介', ko: '소개' },
+    askTitle: { ja: 'スタッフへのお問い合わせ・相談の予約', ko: '담당자 문의·상담 예약' },
+    askIntro: { ja: 'ご質問、相談のご予約、困ったことの通報はこちらから。スタッフが確認してこの画面でお返事します。', ko: '질문, 상담 예약, 곤란한 일 신고는 여기에서 보내 주세요. 담당자가 확인한 뒤 이 화면에서 답변드립니다.' },
+    newAsk: { ja: '新しく送る', ko: '새로 보내기' },
+    kind: { ja: '種類', ko: '종류' },
+    subject: { ja: '件名', ko: '제목' },
+    body: { ja: '内容', ko: '내용' },
+    bookDate: { ja: '希望日', ko: '희망 날짜' },
+    bookTime: { ja: '希望時間', ko: '희망 시간' },
+    bookMethod: { ja: '相談方法', ko: '상담 방법' },
+    send: { ja: '送信する', ko: '보내기' },
+    sent: { ja: '送信しました。スタッフからの返事をお待ちください。', ko: '보냈습니다. 담당자의 답변을 기다려 주세요.' },
+    bodyMissing: { ja: '内容を入力してください。', ko: '내용을 입력해 주세요.' },
+    bookingMissing: { ja: '希望日と相談方法を選んでください。', ko: '희망 날짜와 상담 방법을 선택해 주세요.' },
+    myAsks: { ja: 'これまでのお問い合わせ', ko: '지금까지 보낸 문의' },
+    noAsks: { ja: 'まだお問い合わせはありません。', ko: '아직 보낸 문의가 없습니다.' },
+    staffReply: { ja: 'スタッフからの返事', ko: '담당자 답변' },
+    waitingReply: { ja: 'スタッフが確認しています。', ko: '담당자가 확인하고 있습니다.' },
+    reportAbout: { ja: 'このご紹介について通報', ko: '이 소개에 대해 신고' },
+    introsTitle: { ja: 'スタッフからのご紹介', ko: '담당자가 소개한 분' },
+    introsIntro: { ja: 'お相手の連絡先は表示されません。お二人とも「会ってみたい」を選ばれたら、スタッフが日程などを調整します。', ko: '상대의 연락처는 표시되지 않습니다. 두 분 모두 「만나 보고 싶음」을 선택하시면 담당자가 일정 등을 조율합니다.' },
+    noIntros: { ja: '現在ご紹介はありません。', ko: '현재 소개가 없습니다.' },
+    introsAfterApproval: { ja: '登録完了後にご紹介を受けられます。', ko: '등록이 완료된 뒤에 소개를 받으실 수 있습니다.' },
+    staffComment: { ja: 'スタッフより', ko: '담당자 코멘트' },
+    myAnswer: { ja: 'あなたの回答', ko: '나의 응답' },
+    sayYes: { ja: '会ってみたい', ko: '만나 보고 싶음' },
+    sayNo: { ja: '今回は見送る', ko: '이번에는 사양' },
+    confirmYes: { ja: '「会ってみたい」と回答しますか？回答後は変更できません。', ko: '「만나 보고 싶음」으로 응답할까요? 응답 후에는 바꿀 수 없습니다.' },
+    confirmNo: { ja: '今回は見送りますか？回答後は変更できません。', ko: '이번에는 사양할까요? 응답 후에는 바꿀 수 없습니다.' },
+    answered: { ja: '回答しました。', ko: '응답했습니다.' },
+    introClosed: { ja: 'このご紹介は終了しました', ko: '이 소개는 종료되었습니다' },
+    introAt: { ja: 'ご紹介日', ko: '소개일' },
+    partner: { ja: 'お相手', ko: '상대' },
+    suspendedTitle: { ja: 'ご利用を停止しています', ko: '이용이 정지되었습니다' },
+    suspendedText: { ja: '現在このアカウントはご利用いただけません。詳しくは担当スタッフまでお問い合わせください。', ko: '현재 이 계정은 이용하실 수 없습니다. 자세한 내용은 담당자에게 문의해 주세요.' },
   });
 
   const app = document.getElementById('app');
   let user = null, appDoc = null, photo = null;
+  let inquiries = [], intros = [], unsub = [], formOpen = false;
+  const cards = {};
+  const side = (x) => (x.uidA === user.uid ? 'A' : 'B');
+  const tab = () => (['#ask', '#intros'].includes(location.hash) ? location.hash.slice(1) : 'mine');
+  const unreadReplies = () => inquiries.filter((x) => x.reply && !x.memberSeen).length;
+  const waitingIntros = () => intros.filter((x) => x.status === 'open' && x['resp' + side(x)] === 'pending').length;
 
   function header() {
     return el('header', { class: 'top' }, el('div', { class: 'top-inner' },
@@ -52,6 +95,8 @@
   }
 
   function render() {
+    formOpen = false;
+    KC.titleCount(0);
     if (!KC.configured) return page(el('p', { class: 'alert' }, t('notConfigured')));
     if (!user) {
       return page(el('section', { class: 'card hero' },
@@ -60,7 +105,144 @@
         el('p', { class: 'muted', style: 'margin-top:1.4em;font-size:.88rem' }, t('privacyNote'))));
     }
     if (!appDoc) return chooseGender();
+    if (appDoc.suspended) {
+      return page(el('section', { class: 'card' }, el('h1', {}, t('suspendedTitle')), el('p', { class: 'alert' }, t('suspendedText'))));
+    }
+    KC.titleCount(unreadReplies() + waitingIntros());
+    const cur = tab();
+    if (cur === 'ask') return askView();
+    if (cur === 'intros') return introsView();
     return statusView();
+  }
+
+  // Tabs shown above every signed-in page, with the number of unread replies / unanswered introductions.
+  function tabs() {
+    const cur = tab();
+    const item = (hash, label, n) => el('a', { href: hash, class: (hash === '#' + cur || (hash === '#mine' && cur === 'mine')) ? 'on' : '' }, label, KC.count(n));
+    return el('nav', { class: 'tabs' }, item('#mine', t('tabMine'), 0), item('#ask', t('tabAsk'), unreadReplies()),
+      item('#intros', t('tabIntros'), waitingIntros()));
+  }
+
+  // Live updates for the member's own inquiries and introductions.
+  function listen() {
+    unsub.forEach((u) => u()); unsub = [];
+    if (!user || !appDoc || appDoc.suspended) return;
+    const refresh = () => { if (!formOpen) render(); };
+    unsub.push(KC.db.collection('inquiries').where('uid', '==', user.uid).onSnapshot((s) => {
+      inquiries = s.docs.map((d) => Object.assign({ id: d.id }, d.data())).sort((a, b) => KC.millis(b.createdAt) - KC.millis(a.createdAt));
+      refresh();
+    }, (e) => console.warn(e)));
+    unsub.push(KC.db.collection('intros').where('uids', 'array-contains', user.uid).onSnapshot((s) => {
+      intros = s.docs.map((d) => Object.assign({ id: d.id }, d.data())).sort((a, b) => KC.millis(b.createdAt) - KC.millis(a.createdAt));
+      refresh();
+    }, (e) => console.warn(e)));
+  }
+
+  // ---------- Inquiries / consultation bookings / reports ----------
+  function askView() {
+    const list = el('div');
+    if (!inquiries.length) list.append(el('p', { class: 'muted' }, t('noAsks')));
+    inquiries.forEach((q) => {
+      const b = q.booking || {};
+      list.append(el('div', { class: 'item' },
+        el('div', {}, el('span', { class: 'badge ' + (q.kind === 'report' ? 'report' : q.status) }, KF.opt(KF.INQUIRY_KINDS, q.kind, KC.lang)), ' ',
+          el('b', {}, q.subject || ''), ' ', el('span', { class: 'muted' }, KC.fmtTime(q.createdAt))),
+        q.kind === 'booking' ? el('div', { class: 'muted' }, t('bookDate'), ' ', b.date || '', ' ', b.time || '', ' · ', KF.opt(KF.BOOKING_METHODS, b.method, KC.lang)) : null,
+        el('p', { class: 'body' }, q.body),
+        q.reply ? el('div', { class: 'reply' }, el('b', {}, t('staffReply')), ' ', el('span', { class: 'muted' }, KC.fmtTime(q.repliedAt)), el('br'), q.reply)
+          : el('p', { class: 'muted' }, t('waitingReply'))));
+    });
+    page(tabs(),
+      el('section', { class: 'card' }, el('h1', {}, t('askTitle')), el('p', { class: 'muted' }, t('askIntro')),
+        el('button', { type: 'button', onclick: () => askForm('question') }, t('newAsk'))),
+      el('section', { class: 'card' }, el('h2', { style: 'margin-top:0' }, t('myAsks')), list));
+    // Opening this tab marks staff replies as read.
+    inquiries.filter((q) => q.reply && !q.memberSeen).forEach((q) => KC.db.collection('inquiries').doc(q.id).update({ memberSeen: true }).catch((e) => console.warn(e)));
+  }
+
+  function askForm(kind, introId) {
+    formOpen = true;
+    const kindSel = el('select', { id: 'q-kind' }, KF.INQUIRY_KINDS.map((k) => el('option', { value: k.code, selected: k.code === kind }, k[KC.lang])));
+    const subject = el('input', { id: 'q-subject', maxlength: 200, value: introId ? t('reportAbout') : '' });
+    const body = el('textarea', { id: 'q-body', rows: 6, maxlength: 2000 });
+    const date = el('input', { id: 'q-date', type: 'date' });
+    const time = el('input', { id: 'q-time', type: 'time', step: 900 });
+    const method = el('select', { id: 'q-method' }, el('option', { value: '' }, '—'), KF.BOOKING_METHODS.map((m) => el('option', { value: m.code }, m[KC.lang])));
+    const booking = el('div', { class: 'form-grid wide' },
+      el('label', { class: 'field', for: 'q-date' }, el('span', {}, t('bookDate'), el('em', {}, t('required'))), date),
+      el('label', { class: 'field', for: 'q-time' }, el('span', {}, t('bookTime')), time),
+      el('label', { class: 'field', for: 'q-method' }, el('span', {}, t('bookMethod'), el('em', {}, t('required'))), method));
+    const showBooking = () => { booking.style.display = kindSel.value === 'booking' ? '' : 'none'; };
+    kindSel.addEventListener('change', showBooking); showBooking();
+    const btn = el('button', { type: 'submit' }, t('send'));
+    const f = el('form', { class: 'card', novalidate: true },
+      el('h1', {}, t('newAsk')),
+      el('div', { class: 'form-grid' },
+        el('label', { class: 'field', for: 'q-kind' }, el('span', {}, t('kind')), kindSel),
+        el('label', { class: 'field', for: 'q-subject' }, el('span', {}, t('subject')), subject),
+        booking,
+        el('label', { class: 'field wide', for: 'q-body' }, el('span', {}, t('body'), el('em', {}, t('required'))), body)),
+      el('div', { class: 'actions' }, btn, el('button', { type: 'button', class: 'secondary', onclick: render }, t('cancel'))));
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!body.value.trim()) return KC.toast(t('bodyMissing'), true);
+      const doc = { uid: user.uid, kind: kindSel.value, subject: subject.value.trim(), body: body.value.trim(), status: 'new', memberSeen: true,
+        name: (appDoc.profile || {}).name || '', gender: appDoc.gender, lang: KC.lang, createdAt: KC.ts(), updatedAt: KC.ts() };
+      if (kindSel.value === 'booking') {
+        if (!date.value || !method.value) return KC.toast(t('bookingMissing'), true);
+        doc.booking = { date: date.value, time: time.value, method: method.value };
+      }
+      if (introId && kindSel.value === 'report') doc.introId = introId;
+      btn.disabled = true;
+      try { await KC.db.collection('inquiries').add(doc); KC.toast(t('sent')); location.hash = '#ask'; render(); }
+      catch (err) { KC.fail(err); btn.disabled = false; }
+    });
+    page(tabs(), f);
+    window.scrollTo(0, 0);
+  }
+
+  // ---------- Introductions ----------
+  async function card(x) {
+    const key = x.id + '_' + side(x).toLowerCase();
+    if (!(key in cards)) {
+      const s = await KC.db.collection('introCards').doc(key).get();
+      cards[key] = s.exists ? s.data() : null;
+    }
+    return cards[key];
+  }
+
+  async function introsView() {
+    const box = el('div');
+    page(tabs(), el('section', { class: 'card' }, el('h1', {}, t('introsTitle')), el('p', { class: 'muted' }, t('introsIntro'))), box);
+    if (appDoc.status !== 'approved' && !intros.length) return box.append(el('p', { class: 'notice' }, t('introsAfterApproval')));
+    if (!intros.length) return box.append(el('p', { class: 'muted' }, t('noIntros')));
+    for (const x of intros) {
+      const s = side(x), mine = x['resp' + s], c = await card(x);
+      const g = c && c.gender === 'male' ? 'm' : 'f';
+      const dl = el('dl', { class: 'view' });
+      if (c) {
+        dl.append(el('dt', {}, t('age')), el('dd', {}, c.age != null ? String(c.age) : '-'), el('dt', {}, KF.field('region')[KC.lang]), el('dd', {}, c.region || '-'));
+        KF.INTRO_CARD_FIELDS.forEach((k) => { const f = KF.field(k), v = KC.display(f, g, (c.profile || {})[k]); if (v) dl.append(el('dt', {}, KF.label(f, g, KC.lang)), el('dd', {}, v)); });
+      }
+      const answer = (v) => async () => {
+        if (!confirm(t(v === 'yes' ? 'confirmYes' : 'confirmNo'))) return;
+        try { await KC.db.collection('intros').doc(x.id).update({ ['resp' + s]: v, ['resp' + s + 'At']: KC.ts(), ['seen' + s]: true }); KC.toast(t('answered')); }
+        catch (e) { KC.fail(e); }
+      };
+      box.append(el('section', { class: 'card' },
+        el('p', { class: 'muted', style: 'margin-top:0' }, t('introAt'), ' ', KC.fmtTime(x.createdAt), x.status === 'closed' ? ' · ' + t('introClosed') : ''),
+        el('div', { class: 'introcard' },
+          c && c.photo ? el('img', { src: c.photo, alt: t('partner') }) : el('div', { class: 'ph' }, t('photo')),
+          el('div', {}, el('h2', { style: 'margin-top:0' }, t('partner'), c ? '（' + t(c.gender) + '）' : ''), dl)),
+        x.staffNote ? el('div', { class: 'staffnote' }, el('b', {}, t('staffComment')), el('br'), x.staffNote) : null,
+        el('p', {}, t('myAnswer'), '：', el('span', { class: 'badge ' + mine }, KF.opt(KF.RESP, mine, KC.lang))),
+        el('div', { class: 'actions' },
+          x.status === 'open' && mine === 'pending' ? [el('button', { type: 'button', onclick: answer('yes') }, t('sayYes')),
+            el('button', { type: 'button', class: 'secondary', onclick: answer('no') }, t('sayNo'))] : null,
+          el('button', { type: 'button', class: 'danger', onclick: () => askForm('report', x.id) }, t('reportAbout')))));
+    }
+    // Viewing marks new introductions as seen.
+    intros.filter((x) => x.status === 'open' && !x['seen' + side(x)]).forEach((x) => KC.db.collection('intros').doc(x.id).update({ ['seen' + side(x)]: true }).catch((e) => console.warn(e)));
   }
 
   function chooseGender() {
@@ -80,7 +262,7 @@
       const v = KC.display(f, g, (appDoc.profile || {})[f.k]);
       if (v) dl.append(el('dt', {}, KF.label(f, g, KC.lang)), el('dd', {}, v));
     }));
-    page(
+    page(tabs(),
       el('section', { class: 'card' },
         el('h1', {}, t('myStatus')),
         el('p', {}, el('span', { class: 'badge ' + appDoc.status }, t('st_' + appDoc.status)), ' ',
@@ -95,6 +277,7 @@
   }
 
   function form(gender) {
+    formOpen = true;
     const g = gender === 'male' ? 'm' : 'f';
     const profile = Object.assign({ email: user.email || '' }, appDoc ? appDoc.profile : {});
     let newPhoto = photo, photoChanged = false;
@@ -154,9 +337,12 @@
         const body = { profile: values, status: 'submitted', consent: true, lang: KC.lang, hasPhoto: !!newPhoto, updatedAt: KC.ts() };
         if (appDoc) await ref.update(body);
         else await ref.set(Object.assign({ gender, createdAt: KC.ts() }, body));
+        const first = !appDoc;
         await load();
         KC.toast(t('saved'));
+        if (location.hash !== '#mine') history.replaceState(null, '', '#mine');
         render();
+        if (first) listen();
         window.scrollTo(0, 0);
       } catch (err) { KC.fail(err); submitBtn.disabled = false; }
     });
@@ -164,16 +350,19 @@
     window.scrollTo(0, 0);
   }
 
+  window.addEventListener('hashchange', () => { if (user && appDoc) render(); });
   render();
   if (KC.auth) {
     KC.auth.getRedirectResult().catch(KC.fail);
     KC.auth.onAuthStateChanged(async (u) => {
-      user = u; appDoc = null; photo = null;
+      user = u; appDoc = null; photo = null; inquiries = []; intros = [];
+      Object.keys(cards).forEach((k) => delete cards[k]);
       if (u) {
         page(el('p', { class: 'muted' }, t('loading')));
         try { await load(); } catch (e) { KC.fail(e); }
       }
       render();
+      listen();
     });
   }
 })();

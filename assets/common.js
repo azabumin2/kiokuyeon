@@ -192,6 +192,13 @@
     } finally { URL.revokeObjectURL(url); }
   }
 
+  // Small number bubble for unread / waiting items (nothing when zero).
+  function count(n, red) { return n > 0 ? el('span', { class: 'count' + (red ? ' red' : ''), 'aria-label': String(n) }, String(n)) : null; }
+  // Prefix the browser tab title with the number of new items.
+  const baseTitle = document.title;
+  function titleCount(n) { document.title = (n > 0 ? '(' + n + ') ' : '') + baseTitle; }
+  const millis = (v) => (v && v.toMillis ? v.toMillis() : 0);
+
   window.KC = { auth, db, ts, configured: configured || useEmulator, signIn, t, addStrings, get lang() { return lang; }, setLang, langSwitch,
-    el, toast, fail, ageFrom, fmtTime, fieldInput, readFields, missing, display, resizePhoto };
+    el, toast, fail, ageFrom, fmtTime, fieldInput, readFields, missing, display, resizePhoto, count, titleCount, millis };
 })();

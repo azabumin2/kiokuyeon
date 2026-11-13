@@ -50,6 +50,69 @@
     incomeMin: { ja: '年収（以上）', ko: '연소득（이상）' },
     count: { ja: '件', ko: '건' },
     clear: { ja: '条件をクリア', ko: '조건 지우기' },
+    navInq: { ja: '問い合わせ・相談', ko: '문의·상담' },
+    navIntros: { ja: '紹介', ko: '소개' },
+    newInq: { ja: '未確認の問い合わせ・相談', ko: '미확인 문의·상담' },
+    reports: { ja: '未確認の通報', ko: '미확인 신고' },
+    meetNeeded: { ja: '面会の調整が必要', ko: '만남 조율 필요' },
+    kind: { ja: '種類', ko: '종류' },
+    subject: { ja: '件名', ko: '제목' },
+    body: { ja: '内容', ko: '내용' },
+    booking: { ja: '相談の希望', ko: '상담 희망' },
+    received: { ja: '受信日時', ko: '받은 일시' },
+    inqDetail: { ja: '問い合わせの詳細', ko: '문의 상세' },
+    reply: { ja: '会員への返事（会員の画面に表示されます）', ko: '회원에게 보낼 답변（회원 화면에 표시됩니다）' },
+    repliedBy: { ja: '返事', ko: '답변' },
+    openMember: { ja: '会員情報を開く', ko: '회원 정보 열기' },
+    openIntro: { ja: '対象の紹介を開く', ko: '해당 소개 열기' },
+    noMemberYet: { ja: '（まだ会員登録されていません）', ko: '（아직 회원으로 등록되지 않았습니다）' },
+    tabWaiting: { ja: '回答待ち', ko: '응답 대기' },
+    tabDeclined: { ja: '不成立（見送りあり）', ko: '불성립（사양 있음）' },
+    tabClosed: { ja: '終了', ko: '종료' },
+    introDetail: { ja: '紹介の詳細', ko: '소개 상세' },
+    sideA: { ja: '会員A', ko: '회원 A' },
+    sideB: { ja: '会員B', ko: '회원 B' },
+    response: { ja: '回答', ko: '응답' },
+    seen: { ja: '既読', ko: '읽음' },
+    unseen: { ja: '未読', ko: '안 읽음' },
+    noAccount: { ja: 'アカウントなし（スタッフが本人に確認して入力）', ko: '계정 없음（직원이 본인에게 확인 후 입력）' },
+    setResp: { ja: '回答を代理入力', ko: '응답 대리 입력' },
+    staffNote: { ja: 'スタッフコメント（両方の会員に表示）', ko: '직원 코멘트（양쪽 회원에게 표시）' },
+    outcome: { ja: '結果', ko: '결과' },
+    closeIntro: { ja: '結果を記録して終了', ko: '결과를 기록하고 종료' },
+    outcomeMissing: { ja: '結果を選んでください。', ko: '결과를 선택해 주세요.' },
+    introduce: { ja: 'お相手を紹介する', ko: '상대 소개하기' },
+    introduceTitle: { ja: 'お相手の紹介', ko: '상대 소개' },
+    introduceHelp: { ja: '活動中・利用停止でない・紹介除外でない・まだ紹介していない異性会員だけが候補に出ます。相手には氏名と連絡先は表示されません。', ko: '활동 중이고, 이용 정지가 아니며, 소개 제외가 아니고, 아직 소개하지 않은 이성 회원만 후보로 나옵니다. 상대에게 이름과 연락처는 표시되지 않습니다.' },
+    candidates: { ja: '候補', ko: '후보' },
+    pickOne: { ja: '紹介するお相手を選んでください。', ko: '소개할 상대를 선택해 주세요.' },
+    sendIntro: { ja: 'この内容で紹介する', ko: '이 내용으로 소개' },
+    introSent: { ja: '紹介しました。', ko: '소개했습니다.' },
+    cardPreview: { ja: '相手の会員に表示される項目：写真・年齢・地域・身長・職業・趣味・性格・語学・居住希望（紹介の魅力はスタッフコメントでお伝えください）', ko: '상대 회원에게 표시되는 항목: 사진·나이·지역·키·직업·취미·성격·어학·거주 희망（소개 포인트는 직원 코멘트로 전해 주세요）' },
+    suspend: { ja: '利用停止', ko: '이용 정지' },
+    unsuspend: { ja: '利用停止を解除', ko: '이용 정지 해제' },
+    suspendReason: { ja: '利用停止の理由（記録に残ります）', ko: '이용 정지 사유（기록에 남습니다）' },
+    reasonRequired: { ja: '理由を入力してください。', ko: '사유를 입력해 주세요.' },
+    confirmUnsuspend: { ja: '利用停止を解除しますか？', ko: '이용 정지를 해제할까요?' },
+    suspendedNote: { ja: 'この会員は利用停止中です。', ko: '이 회원은 이용 정지 중입니다.' },
+    noIntroTitle: { ja: '紹介しない相手', ko: '소개하지 않을 상대' },
+    noIntroNone: { ja: '指定はありません。', ko: '지정된 상대가 없습니다.' },
+    noIntroAdd: { ja: '追加', ko: '추가' },
+    remove: { ja: '解除', ko: '해제' },
+    timeline: { ja: '活動履歴', ko: '활동 이력' },
+    noTimeline: { ja: '履歴はまだありません。', ko: '아직 이력이 없습니다.' },
+    staff: { ja: 'スタッフ', ko: '직원' },
+    member: { ja: '本人', ko: '본인' },
+    ev_approved: { ja: '登録申請を承認', ko: '등록 신청 승인' },
+    ev_intro: { ja: '紹介：', ko: '소개: ' },
+    ev_suspend: { ja: '利用停止：', ko: '이용 정지: ' },
+    ev_unsuspend: { ja: '利用停止を解除', ko: '이용 정지 해제' },
+    ev_noIntroAdd: { ja: '紹介除外に追加：', ko: '소개 제외 추가: ' },
+    ev_noIntroRemove: { ja: '紹介除外を解除：', ko: '소개 제외 해제: ' },
+    ev_introClosed: { ja: '紹介を終了：', ko: '소개 종료: ' },
+    ev_resp: { ja: '紹介に回答：', ko: '소개에 응답: ' },
+    ev_inquiry: { ja: '問い合わせ：', ko: '문의: ' },
+    ev_reply: { ja: '問い合わせに返事：', ko: '문의에 답변: ' },
   });
 
   const app = document.getElementById('app');
@@ -58,13 +121,33 @@
   const gKey = (gender) => (gender === 'male' ? 'm' : 'f');
   const STATUS_FIELD = KF.ADMIN.find((f) => f.k === 'status');
 
+  // Live counts for the header badges (kept up to date by Firestore listeners).
+  let liveInq = [], liveIntros = [], unsub = [];
+  const isMeet = (x) => x.status === 'open' && x.respA === 'yes' && x.respB === 'yes';
+  const newCount = () => liveInq.length;
+  const reportCount = () => liveInq.filter((q) => q.kind === 'report').length;
+  const meetCount = () => liveIntros.filter(isMeet).length;
+  function listen() {
+    unsub.forEach((u) => u()); unsub = [];
+    if (!isAdmin) return;
+    const refresh = () => {
+      KC.titleCount(newCount() + meetCount());
+      const h = app.querySelector('header.top');
+      if (h) h.replaceWith(header());
+      if (['', '#/', '#'].includes(location.hash) && app.querySelector('.stats')) dashboard().catch(KC.fail);
+    };
+    unsub.push(col('inquiries').where('status', '==', 'new').onSnapshot((s) => { liveInq = s.docs.map((d) => d.data()); refresh(); }, (e) => console.warn(e)));
+    unsub.push(col('intros').where('status', '==', 'open').onSnapshot((s) => { liveIntros = s.docs.map((d) => d.data()); refresh(); }, (e) => console.warn(e)));
+  }
+
   function header() {
-    const nav = isAdmin ? [['#/', t('navHome')], ['#/apps', t('navApps')], ['#/members?g=female', t('navWomen')], ['#/members?g=male', t('navMen')]] : [];
+    const nav = isAdmin ? [['#/', t('navHome')], ['#/apps', t('navApps')], ['#/inquiries', t('navInq'), KC.count(newCount(), reportCount() > 0)],
+      ['#/intros', t('navIntros'), KC.count(meetCount())], ['#/members?g=female', t('navWomen')], ['#/members?g=male', t('navMen')]] : [];
     return el('header', { class: 'top' }, el('div', { class: 'top-inner' },
       el('a', { class: 'brand', href: '#/' }, t('brand'), el('small', {}, t('adminTitle'))),
-      el('nav', { class: 'tabs', style: 'margin:0' }, nav.map(([h, label]) => {
+      el('nav', { class: 'tabs', style: 'margin:0' }, nav.map(([h, label, n]) => {
         const cur = location.hash || '#/';
-        return el('a', { href: h, class: (h === '#/' ? cur === '#/' : cur.startsWith(h)) ? 'on' : '' }, label);
+        return el('a', { href: h, class: (h === '#/' ? cur === '#/' : cur.startsWith(h)) ? 'on' : '' }, label, n);
       })),
       el('span', { class: 'spacer' }),
       KC.langSwitch(route),
@@ -99,6 +182,11 @@
       if (parts[0] === 'members') return await memberList();
       if (parts[0] === 'member' && parts[1] === 'new') return await memberForm(null);
       if (parts[0] === 'member' && parts[1] && parts[2] === 'edit') return await memberForm(parts[1]);
+      if (parts[0] === 'member' && parts[1] && parts[2] === 'intro') return await introduceForm(parts[1]);
+      if (parts[0] === 'inquiries') return await inquiryList();
+      if (parts[0] === 'inquiry' && parts[1]) return await inquiryDetail(parts[1]);
+      if (parts[0] === 'intros') return await introList();
+      if (parts[0] === 'intro' && parts[1]) return await introDetail(parts[1]);
       if (parts[0] === 'member' && parts[1]) return await memberDetail(parts[1]);
       go('#/');
     } catch (e) { KC.fail(e); page(el('p', { class: 'alert' }, t('error'))); }
@@ -108,8 +196,11 @@
   async function dashboard() {
     const [apps, members] = await Promise.all([col('applications').get(), col('members').get()]);
     const a = apps.docs.map((d) => d.data()), m = members.docs.map((d) => d.data());
-    const stat = (n, label, href) => el('a', { class: 'stat', href }, el('b', {}, String(n)), label);
+    const stat = (n, label, href, red) => el('a', { class: 'stat', href, style: red && n ? 'border-color:var(--bad);color:var(--bad)' : null }, el('b', {}, String(n)), label);
     page(el('h1', {}, t('adminTitle')), el('div', { class: 'stats' },
+      stat(reportCount(), t('reports'), '#/inquiries?status=new', true),
+      stat(newCount(), t('newInq'), '#/inquiries?status=new'),
+      stat(meetCount(), t('meetNeeded'), '#/intros?tab=meet'),
       stat(a.filter((x) => ['submitted', 'reviewing'].includes(x.status)).length, t('pending'), '#/apps?status=open'),
       stat(a.filter((x) => x.status === 'returned').length, t('returnedCount'), '#/apps?status=returned'),
       stat(m.filter((x) => x.gender === 'female' && (x.admin || {}).status === 'active').length, t('activeWomen'), '#/members?g=female'),
@@ -200,7 +291,304 @@
     batch.set(memberRef, { gender: a.gender, profile: a.profile || {}, admin: { status: 'active' }, sourceUid: uid,
       photoKey: a.hasPhoto ? uid : null, createdAt: KC.ts(), updatedAt: KC.ts(), updatedBy: user.email || user.uid });
     batch.update(col('applications').doc(uid), { status: 'approved', memberId: memberRef.id, reviewNote: '', reviewedAt: KC.ts(), reviewedBy: user.email || user.uid });
+    logActivity(batch, memberRef.id, 'approved');
     await batch.commit();
+  }
+
+  // Staff actions are written to members/{id}/activity; the text is rendered in the viewer's language.
+  function logActivity(batch, memberId, type, detail) {
+    batch.set(col('members').doc(memberId).collection('activity').doc(),
+      { type, detail: detail || '', by: user.email || user.uid, at: KC.ts() });
+  }
+  function rows(items, heads, onOpen) {
+    const body = el('tbody');
+    items.forEach((it) => {
+      const tr = el('tr', { class: 'link', tabindex: '0' }, it.cells.map((c) => el('td', {}, c)));
+      const open = () => onOpen(it);
+      tr.addEventListener('click', open); tr.addEventListener('keydown', (e) => { if (e.key === 'Enter') open(); });
+      body.append(tr);
+    });
+    return items.length ? el('div', { class: 'table-wrap' }, el('table', {}, el('thead', {}, el('tr', {}, heads.map((h) => el('th', {}, h)))), body))
+      : el('p', { class: 'muted' }, t('none'));
+  }
+  const respBadge = (v) => badge(v || 'pending', KF.opt(KF.RESP, v || 'pending', KC.lang));
+
+  // ---------- Inquiries / bookings / reports ----------
+  async function inquiryList() {
+    const filter = params().get('status') || 'new';
+    const snap = await col('inquiries').orderBy('createdAt', 'desc').get();
+    const list = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()))
+      .filter((q) => filter === 'all' || q.status === filter)
+      .sort((x, y) => (y.kind === 'report' && y.status !== 'done') - (x.kind === 'report' && x.status !== 'done'));
+    const tabs = KF.INQUIRY_STATUS.map((s) => [s.code, s[KC.lang]]).concat([['all', t('all')]]);
+    page(el('h1', {}, t('navInq')),
+      el('nav', { class: 'tabs' }, tabs.map(([k, label]) => el('a', { href: '#/inquiries?status=' + k, class: k === filter ? 'on' : '' }, label))),
+      rows(list.map((q) => ({ id: q.id, cells: [
+        badge(q.kind === 'report' ? 'report' : 'open', KF.opt(KF.INQUIRY_KINDS, q.kind, KC.lang)), q.name || '', t(q.gender), q.subject || (q.body || '').slice(0, 30),
+        q.kind === 'booking' && q.booking ? (q.booking.date || '') + ' ' + (q.booking.time || '') : '',
+        badge(q.status, KF.opt(KF.INQUIRY_STATUS, q.status, KC.lang)), KC.fmtTime(q.createdAt)] })),
+      [t('kind'), t('name'), t('gender'), t('subject'), t('booking'), t('status'), t('received')], (it) => go('#/inquiry/' + it.id)));
+  }
+
+  async function memberIdForUid(uid) {
+    const s = await col('members').where('sourceUid', '==', uid).limit(1).get();
+    return s.empty ? null : s.docs[0].id;
+  }
+
+  async function inquiryDetail(id) {
+    const ref = col('inquiries').doc(id);
+    const snap = await ref.get();
+    if (!snap.exists) return page(el('p', { class: 'alert' }, t('none')));
+    const q = snap.data(), b = q.booking || {};
+    const memberId = await memberIdForUid(q.uid);
+    const reply = el('textarea', { id: 'inq-reply', rows: 5, maxlength: 2000 });
+    reply.value = q.reply || '';
+    const stSel = el('select', { id: 'inq-status' }, KF.INQUIRY_STATUS.map((s) => el('option', { value: s.code, selected: s.code === (q.status === 'new' ? 'open' : q.status) }, s[KC.lang])));
+    const saveBtn = el('button', { type: 'button' }, t('save'));
+    saveBtn.addEventListener('click', async () => {
+      const r = reply.value.trim();
+      const body = { status: stSel.value, updatedAt: KC.ts() };
+      if (r !== (q.reply || '')) Object.assign(body, { reply: r, repliedAt: KC.ts(), memberSeen: !r });
+      saveBtn.disabled = true;
+      try {
+        const batch = KC.db.batch();
+        batch.update(ref, body);
+        if (body.reply && memberId) logActivity(batch, memberId, 'reply', q.subject ? '「' + q.subject + '」' : '');
+        await batch.commit();
+        KC.toast(t('saved')); go('#/inquiries?status=' + (q.status === 'new' ? 'new' : stSel.value)); }
+      catch (e) { KC.fail(e); saveBtn.disabled = false; }
+    });
+    const dl = el('dl', { class: 'view' },
+      el('dt', {}, t('kind')), el('dd', {}, badge(q.kind === 'report' ? 'report' : 'open', KF.opt(KF.INQUIRY_KINDS, q.kind, KC.lang))),
+      el('dt', {}, t('name')), el('dd', {}, q.name || '', '（', t(q.gender), '） ', memberId ? el('a', { href: '#/member/' + memberId }, t('openMember')) : el('span', { class: 'muted' }, t('noMemberYet'))),
+      el('dt', {}, t('received')), el('dd', {}, KC.fmtTime(q.createdAt)),
+      q.kind === 'booking' ? [el('dt', {}, t('booking')), el('dd', {}, (b.date || '') + ' ' + (b.time || '') + ' · ' + KF.opt(KF.BOOKING_METHODS, b.method, KC.lang))] : null,
+      q.introId ? [el('dt', {}, t('navIntros')), el('dd', {}, el('a', { href: '#/intro/' + q.introId }, t('openIntro')))] : null,
+      el('dt', {}, t('subject')), el('dd', {}, q.subject || ''),
+      el('dt', {}, t('body')), el('dd', {}, q.body || ''),
+      q.repliedAt ? [el('dt', {}, t('repliedBy')), el('dd', {}, KC.fmtTime(q.repliedAt))] : null);
+    page(el('p', {}, el('a', { href: '#/inquiries' }, '← ', t('navInq'))),
+      el('section', { class: 'card' }, el('h1', {}, t('inqDetail')), dl,
+        el('label', { class: 'field wide', for: 'inq-reply', style: 'margin-top:16px' }, el('span', {}, t('reply')), reply),
+        el('label', { class: 'field', for: 'inq-status', style: 'max-width:260px;margin-top:12px' }, el('span', {}, t('status')), stSel),
+        el('div', { class: 'actions' }, saveBtn,
+          el('button', { type: 'button', class: 'danger', onclick: async () => {
+            if (!confirm(t('confirmDelete'))) return;
+            try { await ref.delete(); go('#/inquiries'); } catch (e) { KC.fail(e); }
+          } }, t('delete')))));
+  }
+
+  // ---------- Introductions ----------
+  function introTab(x) {
+    if (x.status === 'closed') return 'closed';
+    if (isMeet(x)) return 'meet';
+    if (x.respA === 'no' || x.respB === 'no') return 'declined';
+    return 'waiting';
+  }
+  async function memberNames() {
+    const s = await col('members').get();
+    const map = {};
+    s.docs.forEach((d) => { map[d.id] = (d.data().profile || {}).name || ''; });
+    return map;
+  }
+  async function introList() {
+    const tab = params().get('tab') || 'waiting';
+    const [snap, names] = await Promise.all([col('intros').orderBy('createdAt', 'desc').get(), memberNames()]);
+    const list = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((x) => tab === 'all' || introTab(x) === tab);
+    list.forEach((x) => { x.a.name = names[x.a.memberId] || '-'; x.b.name = names[x.b.memberId] || '-'; });
+    const tabs = [['waiting', t('tabWaiting')], ['meet', t('meetNeeded')], ['declined', t('tabDeclined')], ['closed', t('tabClosed')], ['all', t('all')]];
+    page(el('h1', {}, t('navIntros')),
+      el('nav', { class: 'tabs' }, tabs.map(([k, label]) => el('a', { href: '#/intros?tab=' + k, class: k === tab ? 'on' : '' }, label))),
+      rows(list.map((x) => ({ id: x.id, cells: [x.a.name || '', respBadge(x.respA), x.b.name || '', respBadge(x.respB),
+        x.status === 'closed' ? KF.opt(KF.INTRO_OUTCOMES, x.outcome, KC.lang) : '', KC.fmtTime(x.createdAt)] })),
+      [t('sideA'), t('response'), t('sideB'), t('response'), t('outcome'), t('updated')], (it) => go('#/intro/' + it.id)));
+  }
+
+  async function introDetail(id) {
+    const ref = col('intros').doc(id);
+    const snap = await ref.get();
+    if (!snap.exists) return page(el('p', { class: 'alert' }, t('none')));
+    const x = snap.data();
+    const names = await memberNames();
+    x.a.name = names[x.a.memberId] || '-'; x.b.name = names[x.b.memberId] || '-';
+    const act = async (fn) => { try { await fn(); KC.toast(t('saved')); route(); } catch (e) { KC.fail(e); } };
+    const sideBox = (s) => {
+      const p = x[s.toLowerCase()], resp = x['resp' + s];
+      const sel = el('select', { id: 'resp-' + s }, KF.RESP.filter((r) => r.code !== 'na').map((r) => el('option', { value: r.code, selected: r.code === resp }, r[KC.lang])));
+      return el('section', { class: 'card' },
+        el('h2', { style: 'margin-top:0' }, t('side' + s), '：', el('a', { href: '#/member/' + p.memberId }, p.name || ''), '（', t(p.gender), '）'),
+        el('p', {}, t('response'), '：', respBadge(resp), ' ', x['resp' + s + 'At'] ? el('span', { class: 'muted' }, KC.fmtTime(x['resp' + s + 'At'])) : null,
+          p.uid ? el('span', { class: 'muted' }, ' · ', x['seen' + s] ? t('seen') : t('unseen')) : null),
+        p.uid ? null : el('p', { class: 'muted' }, t('noAccount')),
+        x.status === 'open' ? el('div', { class: 'actions' },
+          el('label', { class: 'field', for: 'resp-' + s, style: 'min-width:200px' }, el('span', {}, t('setResp')), sel),
+          el('button', { type: 'button', class: 'secondary', style: 'align-self:flex-end', onclick: () => act(() => ref.update({ ['resp' + s]: sel.value, ['resp' + s + 'At']: KC.ts() })) }, t('save'))) : null);
+    };
+    const outSel = el('select', { id: 'intro-outcome' }, el('option', { value: '' }, '—'), KF.INTRO_OUTCOMES.map((o) => el('option', { value: o.code, selected: o.code === x.outcome }, o[KC.lang])));
+    const close = () => {
+      if (!outSel.value) return KC.toast(t('outcomeMissing'), true);
+      act(async () => {
+        const batch = KC.db.batch();
+        batch.update(ref, { status: 'closed', outcome: outSel.value, closedAt: KC.ts() });
+        const label = KF.opt(KF.INTRO_OUTCOMES, outSel.value, 'ja') + ' / ' + KF.opt(KF.INTRO_OUTCOMES, outSel.value, 'ko');
+        logActivity(batch, x.a.memberId, 'introClosed', x.b.name + ' — ' + label);
+        logActivity(batch, x.b.memberId, 'introClosed', x.a.name + ' — ' + label);
+        await batch.commit();
+      });
+    };
+    page(el('p', {}, el('a', { href: '#/intros' }, '← ', t('navIntros'))),
+      el('section', { class: 'card' }, el('h1', {}, t('introDetail')),
+        el('p', {}, badge(introTab(x) === 'meet' ? 'yes' : introTab(x) === 'declined' ? 'no' : x.status === 'closed' ? 'closed' : 'pending',
+          introTab(x) === 'meet' ? t('meetNeeded') : introTab(x) === 'declined' ? t('tabDeclined') : x.status === 'closed' ? t('tabClosed') + '：' + KF.opt(KF.INTRO_OUTCOMES, x.outcome, KC.lang) : t('tabWaiting')),
+          ' ', el('span', { class: 'muted' }, KC.fmtTime(x.createdAt))),
+        x.staffNote ? el('div', { class: 'staffnote' }, el('b', {}, t('staffNote')), el('br'), x.staffNote) : null,
+        x.status === 'open' ? el('div', { class: 'actions' },
+          el('label', { class: 'field', for: 'intro-outcome', style: 'min-width:220px' }, el('span', {}, t('outcome')), outSel),
+          el('button', { type: 'button', style: 'align-self:flex-end', onclick: close }, t('closeIntro'))) : null),
+      sideBox('A'), sideBox('B'));
+  }
+
+  // Partner summary shown to the other member: no name, no contact details.
+  async function makeCard(m, viewerUid) {
+    const pr = m.profile || {}, profile = {};
+    KF.INTRO_CARD_FIELDS.forEach((k) => { if (pr[k] != null && pr[k] !== '') profile[k] = pr[k]; });
+    let photo = null;
+    if (m.photoKey) { const p = await col('photos').doc(m.photoKey).get(); if (p.exists) photo = p.data().data; }
+    return { viewerUid, gender: m.gender, age: KC.ageFrom(pr.birth), region: pr.region || '', profile, photo, createdAt: KC.ts() };
+  }
+
+  async function introduceForm(id) {
+    const [meSnap, allSnap, introSnap] = await Promise.all([col('members').doc(id).get(), col('members').get(), col('intros').get()]);
+    if (!meSnap.exists) return page(el('p', { class: 'alert' }, t('none')));
+    const me = Object.assign({ id }, meSnap.data());
+    const done = new Set();
+    introSnap.docs.forEach((d) => { const x = d.data(); if (x.a.memberId === id) done.add(x.b.memberId); if (x.b.memberId === id) done.add(x.a.memberId); });
+    const mine = new Set(me.noIntro || []);
+    const cands = allSnap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((m) => m.gender !== me.gender
+      && (m.admin || {}).status === 'active' && !mine.has(m.id) && !(m.noIntro || []).includes(id) && !done.has(m.id))
+      .sort((x, y) => (age(x.profile) ?? 999) - (age(y.profile) ?? 999));
+    const pr = me.profile || {};
+    const filter = el('input', { type: 'search', id: 'cand-q', placeholder: t('q') });
+    const list = el('div', { class: 'table-wrap' });
+    const draw = () => {
+      const q = filter.value.trim().toLowerCase();
+      const body = el('tbody');
+      cands.filter((m) => !q || [m.profile && m.profile.name, m.profile && m.profile.region, m.profile && m.profile.jobDetails].join(' ').toLowerCase().includes(q)).forEach((m) => {
+        const p = m.profile || {}, rid = 'cand-' + m.id;
+        body.append(el('tr', {}, el('td', {}, el('input', { type: 'radio', name: 'cand', value: m.id, id: rid, style: 'width:auto' })),
+          el('td', {}, el('label', { for: rid }, p.name || '')), el('td', {}, age(p) ?? ''), el('td', {}, p.region || ''), el('td', {}, p.height || ''),
+          el('td', {}, p.jobDetails || ''), el('td', {}, m.sourceUid ? '' : t('noAccount').split('（')[0])));
+      });
+      list.replaceChildren(el('table', {}, el('thead', {}, el('tr', {}, ['', t('name'), t('age'), t('region'), KF.field('height')[KC.lang], KF.field('jobDetails')[KC.lang], ''].map((h) => el('th', {}, h)))), body));
+    };
+    filter.addEventListener('input', draw); draw();
+    const note = el('textarea', { id: 'intro-note', rows: 4, maxlength: 1000 });
+    const btn = el('button', { type: 'button' }, t('sendIntro'));
+    btn.addEventListener('click', async () => {
+      const picked = list.querySelector('input[name="cand"]:checked');
+      if (!picked) return KC.toast(t('pickOne'), true);
+      const other = cands.find((m) => m.id === picked.value);
+      btn.disabled = true;
+      try {
+        const ref = col('intros').doc();
+        // The intro document is readable by both members, so it carries no names (staff resolve them from members).
+        const side = (m) => ({ memberId: m.id, uid: m.sourceUid || null, gender: m.gender });
+        const nameOf = (m) => (m.profile || {}).name || '';
+        const uidA = me.sourceUid || null, uidB = other.sourceUid || null;
+        const batch = KC.db.batch();
+        batch.set(ref, { a: side(me), b: side(other), uidA, uidB, uids: [uidA, uidB].filter(Boolean),
+          respA: uidA ? 'pending' : 'na', respB: uidB ? 'pending' : 'na', seenA: false, seenB: false,
+          staffNote: note.value.trim(), status: 'open', createdAt: KC.ts() });
+        if (uidA) batch.set(col('introCards').doc(ref.id + '_a'), await makeCard(other, uidA));
+        if (uidB) batch.set(col('introCards').doc(ref.id + '_b'), await makeCard(me, uidB));
+        logActivity(batch, me.id, 'intro', nameOf(other));
+        logActivity(batch, other.id, 'intro', nameOf(me));
+        await batch.commit();
+        KC.toast(t('introSent'));
+        go('#/intro/' + ref.id);
+      } catch (e) { KC.fail(e); btn.disabled = false; }
+    });
+    page(el('p', {}, el('a', { href: '#/member/' + id }, '← ', pr.name || '')),
+      el('section', { class: 'card' }, el('h1', {}, t('introduceTitle'), '：', pr.name || '', '（', t(me.gender), '・', t('age'), ' ', age(pr) ?? '-', '）'),
+        el('p', { class: 'muted' }, t('introduceHelp')),
+        el('p', { class: 'muted' }, KF.field('prefMinAge')[KC.lang], ' ', pr.prefMinAge ?? '-', ' / ', KF.field('prefMaxAge')[KC.lang], ' ', pr.prefMaxAge ?? '-', ' / ', KF.field('prefMinHeight')[KC.lang], ' ', pr.prefMinHeight ?? '-')),
+      el('section', { class: 'card' }, el('h2', { style: 'margin-top:0' }, t('candidates'), ' (', cands.length, ')'),
+        el('label', { class: 'field', for: 'cand-q', style: 'max-width:320px;margin-bottom:12px' }, el('span', {}, t('search')), filter), list),
+      el('section', { class: 'card' },
+        el('label', { class: 'field wide', for: 'intro-note' }, el('span', {}, t('staffNote')), note),
+        el('p', { class: 'muted' }, t('cardPreview')),
+        el('div', { class: 'actions' }, btn, el('a', { class: 'button secondary', href: '#/member/' + id }, t('cancel')))));
+  }
+
+  // ---------- Suspension / no-intro pairs ----------
+  async function setSuspended(id, m, on) {
+    const ad = Object.assign({}, m.admin || {});
+    let reason = '';
+    if (on) {
+      reason = (prompt(t('suspendReason')) || '').trim();
+      if (!reason) return KC.toast(t('reasonRequired'), true);
+    } else if (!confirm(t('confirmUnsuspend'))) return;
+    try {
+      const batch = KC.db.batch();
+      if (on) { ad.prevStatus = ad.status === 'suspended' ? 'active' : (ad.status || 'active'); ad.status = 'suspended'; ad.suspendReason = reason; }
+      else { ad.status = ad.prevStatus || 'active'; delete ad.prevStatus; delete ad.suspendReason; }
+      batch.update(col('members').doc(id), { admin: ad, updatedAt: KC.ts(), updatedBy: user.email || user.uid });
+      if (m.sourceUid) batch.set(col('applications').doc(m.sourceUid), { suspended: on, suspendReason: on ? reason : '' }, { merge: true });
+      if (on) {
+        const [ia, ib] = await Promise.all([col('intros').where('a.memberId', '==', id).get(), col('intros').where('b.memberId', '==', id).get()]);
+        ia.docs.concat(ib.docs).filter((d) => d.data().status === 'open').forEach((d) =>
+          batch.update(d.ref, { status: 'closed', outcome: 'suspended', closedAt: KC.ts() }));
+      }
+      logActivity(batch, id, on ? 'suspend' : 'unsuspend', reason);
+      await batch.commit();
+      KC.toast(t('saved'));
+      route();
+    } catch (e) { KC.fail(e); }
+  }
+
+  async function setNoIntro(me, other, on) {
+    try {
+      const batch = KC.db.batch();
+      const op = on ? firebase.firestore.FieldValue.arrayUnion : firebase.firestore.FieldValue.arrayRemove;
+      batch.update(col('members').doc(me.id), { noIntro: op(other.id) });
+      batch.update(col('members').doc(other.id), { noIntro: op(me.id) });
+      logActivity(batch, me.id, on ? 'noIntroAdd' : 'noIntroRemove', (other.profile || {}).name || '');
+      logActivity(batch, other.id, on ? 'noIntroAdd' : 'noIntroRemove', (me.profile || {}).name || '');
+      await batch.commit();
+      KC.toast(t('saved'));
+      route();
+    } catch (e) { KC.fail(e); }
+  }
+
+  // Everything that happened to one member, newest first: staff actions, records, introductions and inquiries.
+  async function timeline(id, m) {
+    const ref = col('members').doc(id);
+    const [acts, ia, ib, inq] = await Promise.all([
+      ref.collection('activity').get(),
+      col('intros').where('a.memberId', '==', id).get(),
+      col('intros').where('b.memberId', '==', id).get(),
+      m.sourceUid ? col('inquiries').where('uid', '==', m.sourceUid).get() : Promise.resolve({ docs: [] })]);
+    const ev = [];
+    const names = ia.size + ib.size ? await memberNames() : {};
+    const introDocs = ia.docs.concat(ib.docs).map((d) => {
+      const x = d.data(); x.id = d.id; x.a.name = names[x.a.memberId] || '-'; x.b.name = names[x.b.memberId] || '-'; return x;
+    });
+    acts.docs.forEach((d) => { const a = d.data(); ev.push({ at: a.at, who: 'staff', by: a.by, text: t('ev_' + a.type) + (a.detail || ''), href: null }); });
+    introDocs.forEach((x) => {
+      const s = x.a.memberId === id ? 'A' : 'B', other = s === 'A' ? x.b : x.a;
+      if (x['resp' + s + 'At'] && x['resp' + s] !== 'na') ev.push({ at: x['resp' + s + 'At'], who: 'member', text: t('ev_resp') + other.name + ' — ' + KF.opt(KF.RESP, x['resp' + s], KC.lang), href: '#/intro/' + x.id });
+    });
+    inq.docs.forEach((d) => {
+      const q = d.data();
+      ev.push({ at: q.createdAt, who: 'member', text: t('ev_inquiry') + KF.opt(KF.INQUIRY_KINDS, q.kind, KC.lang) + (q.subject ? ' 「' + q.subject + '」' : ''), href: '#/inquiry/' + d.id });
+    });
+    ev.sort((x, y) => KC.millis(y.at) - KC.millis(x.at));
+    const box = el('div', { class: 'timeline' });
+    if (!ev.length) box.append(el('p', { class: 'muted' }, t('noTimeline')));
+    ev.forEach((e) => box.append(el('div', { class: 'record ' + e.who },
+      el('span', { class: 'muted' }, KC.fmtTime(e.at), ' · ', e.who === 'staff' ? t('staff') + (e.by ? '（' + e.by + '）' : '') : t('member')), el('br'),
+      e.href ? el('a', { href: e.href }, e.text) : e.text)));
+    return box;
   }
 
   // ---------- Members ----------
@@ -299,16 +687,38 @@
 
     const matchHref = '#/members?' + new URLSearchParams(Object.fromEntries(Object.entries({ g: 'male',
       ageMin: pr.prefMinAge, ageMax: pr.prefMaxAge, hMin: pr.prefMinHeight }).filter(([, v]) => v != null && v !== ''))).toString();
+    const suspended = ad.status === 'suspended';
+
+    // Pairs staff decided never to introduce.
+    const others = (await col('members').where('gender', '==', m.gender === 'male' ? 'female' : 'male').get()).docs.map((d) => Object.assign({ id: d.id }, d.data()));
+    const me = Object.assign({ id }, m), excluded = new Set(m.noIntro || []);
+    const noIntroBox = el('div');
+    const exList = others.filter((o) => excluded.has(o.id));
+    if (!exList.length) noIntroBox.append(el('p', { class: 'muted' }, t('noIntroNone')));
+    exList.forEach((o) => noIntroBox.append(el('div', { class: 'item' }, el('a', { href: '#/member/' + o.id }, (o.profile || {}).name || ''), ' ',
+      el('button', { type: 'button', class: 'secondary', style: 'min-height:32px;padding:2px 12px', onclick: () => setNoIntro(me, o, false) }, t('remove')))));
+    const exSel = el('select', { id: 'nointro-sel' }, el('option', { value: '' }, '—'),
+      others.filter((o) => !excluded.has(o.id)).map((o) => el('option', { value: o.id }, ((o.profile || {}).name || '') + '（' + (age(o.profile) ?? '-') + '）')));
+    const exAdd = el('button', { type: 'button', class: 'secondary', style: 'align-self:flex-end', onclick: () => {
+      const o = others.find((x) => x.id === exSel.value); if (o) setNoIntro(me, o, true);
+    } }, t('noIntroAdd'));
+
     page(el('p', {}, el('a', { href: '#/members?g=' + m.gender }, '← ', m.gender === 'male' ? t('navMen') : t('navWomen'))),
       el('section', { class: 'card' },
         el('h1', {}, pr.name || '', ' ', badge(ad.status || '', memberStatusLabel(ad.status))),
+        suspended ? el('p', { class: 'alert' }, t('suspendedNote'), ad.suspendReason ? '（' + ad.suspendReason + '）' : '') : null,
         el('p', { class: 'muted' }, t(m.gender), ' · ', t('age'), ' ', age(pr) ?? '-', ' · ', t('updated'), ' ', KC.fmtTime(m.updatedAt), m.updatedBy ? ' (' + m.updatedBy + ')' : '',
           m.sourceUid ? el('span', {}, ' · ', el('a', { href: '#/app/' + m.sourceUid }, t('fromApp'))) : null),
         el('div', { class: 'photo' }, await photoBox(m.photoKey)),
         el('div', { class: 'actions' }, el('a', { class: 'button', href: '#/member/' + id + '/edit' }, t('edit')),
+          !suspended && ad.status === 'active' ? el('a', { class: 'button', href: '#/member/' + id + '/intro' }, t('introduce')) : null,
           m.gender === 'female' ? el('a', { class: 'button secondary', href: matchHref }, t('matchMen')) : null,
+          el('button', { type: 'button', class: 'danger', onclick: () => setSuspended(id, m, !suspended) }, suspended ? t('unsuspend') : t('suspend')),
           el('button', { type: 'button', class: 'danger', onclick: () => deleteMember(id, m) }, t('delete')))),
       el('section', { class: 'card' }, el('h2', { style: 'margin-top:0' }, t('adminSection')), adminDl),
+      el('section', { class: 'card' }, el('h2', { style: 'margin-top:0' }, t('timeline')), await timeline(id, m)),
+      el('section', { class: 'card' }, el('h2', { style: 'margin-top:0' }, t('noIntroTitle')), noIntroBox,
+        el('div', { class: 'actions' }, el('label', { class: 'field', for: 'nointro-sel', style: 'min-width:240px' }, el('span', {}, t('noIntroTitle')), exSel), exAdd)),
       el('section', { class: 'card' }, el('h2', { style: 'margin-top:0' }, t('records')), recBox),
       recForm,
       el('section', { class: 'card' }, profileView(pr, g)));
@@ -318,8 +728,8 @@
     if (!confirm(t('confirmDelete'))) return;
     try {
       const ref = col('members').doc(id);
-      const recs = await ref.collection('records').get();
-      await Promise.all(recs.docs.map((d) => d.ref.delete()));
+      const [recs, acts] = await Promise.all([ref.collection('records').get(), ref.collection('activity').get()]);
+      await Promise.all(recs.docs.concat(acts.docs).map((d) => d.ref.delete()));
       if (m.photoKey) await col('photos').doc(m.photoKey).delete();
       await ref.delete();
       KC.toast(t('saved'));
@@ -373,7 +783,13 @@
           if (photo) await col('photos').doc(photoKey).set({ data: photo, updatedAt: KC.ts() });
           else await col('photos').doc(photoKey).delete();
         }
+        const before = (m.admin || {});
+        ['prevStatus', 'suspendReason'].forEach((k) => { if (before[k] != null && admin.status === 'suspended') admin[k] = before[k]; });
         const body = { profile, admin, photoKey: photo ? photoKey : null, updatedAt: KC.ts(), updatedBy: user.email || user.uid };
+        // Keep the member's own account in step when staff change suspension from the edit form.
+        if (id && m.sourceUid && (before.status === 'suspended') !== (admin.status === 'suspended')) {
+          await col('applications').doc(m.sourceUid).set({ suspended: admin.status === 'suspended' }, { merge: true });
+        }
         if (id) await ref.update(body);
         else await ref.set(Object.assign({ gender: m.gender, sourceUid: null, createdAt: KC.ts() }, body));
         KC.toast(t('saved'));
@@ -392,6 +808,8 @@
       if (u) {
         try { isAdmin = (await col('admins').doc(u.uid).get()).exists; } catch (e) { isAdmin = false; }
       }
+      liveInq = []; liveIntros = [];
+      listen();
       route();
     });
   }
