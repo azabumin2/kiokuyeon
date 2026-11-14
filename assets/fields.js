@@ -24,11 +24,11 @@
       { k: 'contactChannel', ja: '希望する連絡手段', ko: '희망 연락 방법', type: 'select', opts: [o('line', 'LINE', 'LINE'), o('kakao', 'カカオトーク', '카카오톡'), o('email', 'メール', '이메일'), o('phone', '電話', '전화'), o('other', 'その他', '기타')] },
     ]},
     { id: 'profile', ja: 'プロフィール', ko: '프로필', fields: [
-      { k: 'height', ja: '身長（cm）', ko: '키（cm）', type: 'number', min: 100, max: 250 },
+      { k: 'height', ja: '身長（cm）', ko: '키（cm）', type: 'number', min: 100, max: 250, req: true },
       { k: 'weightKg', ja: '体重（kg）', ko: '체중（kg）', type: 'number', min: 20, max: 300 },
       { k: 'bloodType', ja: '血液型', ko: '혈액형', type: 'select', opts: [o('A', 'A', 'A'), o('B', 'B', 'B'), o('AB', 'AB', 'AB'), o('O', 'O', 'O'), o('unknown', '不明', '모름')] },
       { k: 'highestEducation', ja: '最終学歴', ko: '최종 학력', type: 'text', max: 80 },
-      { k: 'employmentStatus', ja: '就業状況', ko: '취업 상황', type: 'select', opts: [o('employed', '会社員・公務員', '회사원·공무원'), o('self', '自営業', '자영업'), o('parttime', 'パート・アルバイト', '파트타임·아르바이트'), o('none', '就業していない', '무직'), o('other', 'その他', '기타')] },
+      { k: 'employmentStatus', ja: '就業状況', ko: '취업 상황', type: 'select', req: true, opts: [o('employed', '会社員・公務員', '회사원·공무원'), o('self', '自営業', '자영업'), o('parttime', 'パート・アルバイト', '파트타임·아르바이트'), o('none', '就業していない', '무직'), o('other', 'その他', '기타')] },
       { k: 'jobDetails', ja: '職種・仕事内容', ko: '직종·업무 내용', type: 'text', max: 180 },
       { k: 'income', type: 'number', min: 0, max: 1000000,
         lab: { f: { ja: '年収（万円）', ko: '연소득（만 엔）' }, m: { ja: '年収（万ウォン）', ko: '연소득（만 원）' } } },
