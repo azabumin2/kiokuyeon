@@ -1,6 +1,6 @@
 rules_version = '2';
 // Access rules for the member registration site.
-//  - Members (Google sign-in) can create, read and correct only their own application and photo.
+//  - Members (Google / Microsoft / e-mail sign-in) can create, read and correct only their own application and photo.
 //  - Only staff listed in /admins/{uid} can read or change anything else.
 //  - /admins can only be edited from the Firebase console.
 service cloud.firestore {
@@ -8,6 +8,10 @@ service cloud.firestore {
 
     function signedIn() { return request.auth != null; }
     function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+    // E-mail + password accounts must confirm their address first (Google / Microsoft are checked by the provider).
+    function confirmed() {
+      return request.auth.token.firebase.sign_in_provider != 'password' || request.auth.token.email_verified == true;
+    }
     function isAdmin() { return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
     function appPath(uid) { return /databases/$(database)/documents/applications/$(uid); }
     function appEditable(uid) {
@@ -32,12 +36,12 @@ service cloud.firestore {
 
     match /applications/{uid} {
       allow read: if isOwner(uid) || isAdmin();
-      allow create: if isOwner(uid)
+      allow create: if isOwner(uid) && confirmed()
         && request.resource.data.keys().hasOnly(['gender', 'profile', 'status', 'consent', 'lang', 'hasPhoto', 'createdAt', 'updatedAt'])
         && request.resource.data.gender in ['female', 'male']
         && request.resource.data.createdAt == request.time
         && validSubmission(request.resource.data);
-      allow update: if isAdmin() || (isOwner(uid)
+      allow update: if isAdmin() || (isOwner(uid) && confirmed()
         && resource.data.status in ['submitted', 'returned']
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['profile', 'status', 'consent', 'lang', 'hasPhoto', 'updatedAt'])
         && validSubmission(request.resource.data));
@@ -46,7 +50,7 @@ service cloud.firestore {
 
     match /photos/{key} {
       allow read: if isOwner(key) || isAdmin();
-      allow create, update: if isAdmin() || (isOwner(key) && appEditable(key)
+      allow create, update: if isAdmin() || (isOwner(key) && confirmed() && appEditable(key)
         && request.resource.data.keys().hasOnly(['data', 'updatedAt'])
         && request.resource.data.data is string
         && request.resource.data.data.size() < 750000

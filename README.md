@@ -4,7 +4,7 @@ GitHub Pages(화면) + Firebase(Google 로그인·Firestore 데이터 저장)로
 
 | 화면 | 주소 | 사용하는 사람 |
 |---|---|---|
-| 회원 등록 | `https://kiokuyeon.com/` (`index.html`) | 일반 남성·여성 회원. Google 로그인 후 본인 프로필·사진 등록, 진행 상황 확인, 수정 요청 시 재제출. **문의·상담 예약·신고** 보내기와 답변 확인, 직원이 **소개한 상대** 확인 후 「만나 보고 싶음/사양」 응답 |
+| 회원 등록 | `https://kiokuyeon.com/` (`index.html`) | 일반 남성·여성 회원. **Google 로그인 또는 이메일+비밀번호**(네이버·Yahoo·Outlook 등 어떤 메일이든 가능, 가입 시 메일 인증 필수)·Microsoft 로그인(설정 후) 후 본인 프로필·사진 등록, 진행 상황 확인, 수정 요청 시 재제출. **문의·상담 예약·신고** 보내기와 답변 확인, 직원이 **소개한 상대** 확인 후 「만나 보고 싶음/사양」 응답 |
 | 관리자 화면 | `https://kiokuyeon.com/admin.html` | 직원. 등록 신청 검토(승인·수정 요청·반려), 남녀 회원 목록·검색·상세·편집, 상담·교제 기록, 사진 관리. **미확인 문의·상담 배지**(신고는 빨간색), **소개하기**와 응답 현황(양쪽 수락 시 「만남 조율 필요」), **이용 정지·소개 제외**, 회원별 **활동 이력** |
 
 알림은 화면 배지 방식입니다(관리자·회원 화면을 열어 두면 실시간 반영, 브라우저 탭 제목에 건수 표시). 이메일·푸시 알림은 Firebase 유료 요금제(Blaze) 또는 별도 메일 서비스가 필요해 이번에는 넣지 않았습니다.
@@ -29,13 +29,23 @@ GitHub Pages(화면) + Firebase(Google 로그인·Firestore 데이터 저장)로
 
 ### 1. Firebase 프로젝트 만들기
 1. https://console.firebase.google.com → 프로젝트 추가 (예: `kiokuyeon`). 요금제는 무료(Spark)로 시작할 수 있습니다.
-2. **Authentication** → 시작하기 → 로그인 방법 → **Google** 사용 설정.
+2. **Authentication** → 시작하기 → 로그인 방법 → **Google**과 **이메일/비밀번호**(「メール/パスワード」, 이메일 링크는 끔) 사용 설정.
 3. **Firestore Database** → 데이터베이스 만들기 → 위치 `asia-northeast1 (Tokyo)` → 프로덕션 모드.
 4. Firestore → **규칙** 탭에 이 저장소의 `firestore.rules` 내용을 붙여 넣고 **게시**.
 5. 프로젝트 설정 → 내 앱 → 웹 앱 추가(`</>`) → 표시되는 `firebaseConfig` 값을 `assets/firebase-config.js`에 입력.
 6. Authentication → 설정 → **승인된 도메인**에 `azabumin2.github.io`, `kiokuyeon.com`, `www.kiokuyeon.com` 추가 (2026-11-14 추가 완료).
 
 `firebase-config.js`의 값은 프로젝트 식별용이라 공개되어도 괜찮습니다. 데이터 보호는 보안 규칙이 담당합니다.
+
+### 1-2. Microsoft(Outlook) 로그인 켜기 (선택)
+1. https://portal.azure.com → **Microsoft Entra ID** → **앱 등록** → 새 등록
+   - 지원되는 계정 유형: **모든 조직 디렉터리의 계정 및 개인 Microsoft 계정**
+   - 리디렉션 URI(웹): `https://kiokuyeon.firebaseapp.com/__/auth/handler`
+2. 등록한 앱의 **애플리케이션(클라이언트) ID**를 복사하고, **인증서 및 비밀** → 새 클라이언트 암호를 만들어 **값**을 복사합니다(만료일이 있으니 기록해 두기).
+3. Firebase 콘솔 → Authentication → 로그인 방법 → **Microsoft** 사용 설정 → ID와 암호 값을 붙여 넣고 저장.
+4. `assets/firebase-config.js`의 `window.AUTH_OPTIONS = { microsoft: false }`를 `true`로 바꾸고 `?v=` 값을 갱신해 푸시하면 회원 화면에 버튼이 나타납니다.
+
+같은 이메일 주소를 Google·이메일·Microsoft 중 여러 방법으로 따로 가입할 수는 없습니다(처음 쓴 방법으로 로그인). 관리자 화면은 지금처럼 Google 로그인만 씁니다.
 
 ### 2. 첫 관리자 등록
 1. 사이트의 `admin.html`을 열고 직원용 Google 계정으로 로그인 → 「권한 없음」 화면에 **UID**가 표시됩니다.

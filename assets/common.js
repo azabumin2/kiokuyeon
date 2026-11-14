@@ -19,8 +19,17 @@
   }
   const ts = () => firebase.firestore.FieldValue.serverTimestamp();
 
-  async function signIn() {
-    const provider = new firebase.auth.GoogleAuthProvider();
+  // Sign-in methods offered to members. Microsoft needs an app registered in Azure first
+  // (see README), so it stays hidden until AUTH_OPTIONS.microsoft is set to true in firebase-config.js.
+  const authOptions = Object.assign({ microsoft: false }, window.AUTH_OPTIONS || {});
+
+  async function signIn(kind) {
+    let provider;
+    if (kind === 'microsoft') {
+      provider = new firebase.auth.OAuthProvider('microsoft.com');
+    } else {
+      provider = new firebase.auth.GoogleAuthProvider();
+    }
     provider.setCustomParameters({ prompt: 'select_account' });
     try {
       await auth.signInWithPopup(provider);
@@ -34,6 +43,35 @@
     }
   }
 
+  // ---------- E-mail + password ----------
+  // Any mail address (Naver, Yahoo, Outlook …) can be used. New accounts must open the confirmation
+  // link before they can submit a profile (also enforced in firestore.rules).
+  const backUrl = () => ({ url: location.origin + location.pathname });
+  async function emailSignUp(email, password) {
+    auth.languageCode = lang;
+    const cred = await auth.createUserWithEmailAndPassword(email, password);
+    await cred.user.sendEmailVerification(backUrl());
+  }
+  function emailSignIn(email, password) { return auth.signInWithEmailAndPassword(email, password); }
+  function resetPassword(email) { auth.languageCode = lang; return auth.sendPasswordResetEmail(email, backUrl()); }
+  function resendVerification() { auth.languageCode = lang; return auth.currentUser.sendEmailVerification(backUrl()); }
+  const needsVerification = (u) => !!u && !u.emailVerified && u.providerData.some((p) => p.providerId === 'password');
+
+  // Readable messages for sign-in errors.
+  function authFail(e) {
+    const map = {
+      'auth/invalid-email': 'authBadEmail', 'auth/missing-email': 'authBadEmail',
+      'auth/invalid-credential': 'authWrongPw', 'auth/wrong-password': 'authWrongPw', 'auth/user-not-found': 'authWrongPw',
+      'auth/invalid-login-credentials': 'authWrongPw',
+      'auth/email-already-in-use': 'authInUse', 'auth/weak-password': 'authWeakPw',
+      'auth/too-many-requests': 'authTooMany', 'auth/account-exists-with-different-credential': 'authOtherMethod',
+      'auth/operation-not-allowed': 'authNotEnabled', 'auth/network-request-failed': 'authNetwork',
+    };
+    const key = e && map[e.code];
+    if (!key) return fail(e);
+    console.warn(e);
+    toast(t(key), true);
+  }
   // ---------- Language ----------
   const STR = {
     brand: { ja: '未来結婚情報', ko: '미래결혼정보' },
@@ -67,6 +105,15 @@
     st_returned: { ja: '修正のお願い', ko: '수정 요청' },
     st_approved: { ja: '登録完了', ko: '등록 완료' },
     st_rejected: { ja: 'お見送り', ko: '반려' },
+    loginMicrosoft: { ja: 'Microsoft・Outlookでログイン', ko: 'Microsoft·Outlook으로 로그인' },
+    authBadEmail: { ja: 'メールアドレスの形式が正しくありません。', ko: '이메일 주소 형식이 올바르지 않습니다.' },
+    authWrongPw: { ja: 'メールアドレスまたはパスワードが違います。', ko: '이메일 주소 또는 비밀번호가 틀립니다.' },
+    authInUse: { ja: 'このメールアドレスは登録済みです。ログインするか、パスワードの再設定をお試しください。（Googleで登録された方は「Googleでログイン」をお使いください）', ko: '이미 등록된 이메일 주소입니다. 로그인하거나 비밀번호 재설정을 해 주세요.（Google로 등록하신 분은 「Google로 로그인」을 이용해 주세요）' },
+    authWeakPw: { ja: 'パスワードは8文字以上にしてください。', ko: '비밀번호는 8자 이상으로 해 주세요.' },
+    authTooMany: { ja: '試行回数が多すぎます。しばらくしてからお試しください。', ko: '시도 횟수가 너무 많습니다. 잠시 후 다시 시도해 주세요.' },
+    authOtherMethod: { ja: 'このメールアドレスは別の方法（Google・メールアドレスなど）で登録されています。最初に使った方法でログインしてください。', ko: '이 이메일 주소는 다른 방법（Google·이메일 등）으로 등록되어 있습니다. 처음 사용하신 방법으로 로그인해 주세요.' },
+    authNotEnabled: { ja: 'このログイン方法は現在準備中です。', ko: '이 로그인 방법은 현재 준비 중입니다.' },
+    authNetwork: { ja: '通信に失敗しました。接続を確認してください。', ko: '통신에 실패했습니다. 인터넷 연결을 확인해 주세요.' },
   };
   let lang = 'ja';
   try { const v = localStorage.getItem('kiokuyeon-lang'); if (v === 'ja' || v === 'ko') lang = v; } catch (e) { /* storage unavailable */ }
@@ -199,6 +246,7 @@
   function titleCount(n) { document.title = (n > 0 ? '(' + n + ') ' : '') + baseTitle; }
   const millis = (v) => (v && v.toMillis ? v.toMillis() : 0);
 
-  window.KC = { auth, db, ts, configured: configured || useEmulator, signIn, t, addStrings, get lang() { return lang; }, setLang, langSwitch,
+  window.KC = { auth, db, ts, configured: configured || useEmulator, signIn, authOptions, emailSignUp, emailSignIn, resetPassword,
+    resendVerification, needsVerification, authFail, t, addStrings, get lang() { return lang; }, setLang, langSwitch,
     el, toast, fail, ageFrom, fmtTime, fieldInput, readFields, missing, display, resizePhoto, count, titleCount, millis };
 })();

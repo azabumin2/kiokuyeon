@@ -1,11 +1,33 @@
-// Member self-registration: a man or woman signs in with Google and submits their own profile.
+// Member self-registration: a man or woman signs in (Google, Microsoft or e-mail + password) and submits their own profile.
 // Staff review it in the admin screen (admin.html).
 (function () {
   'use strict';
   const { el, t } = KC;
   KC.addStrings({
     heroTitle: { ja: '会員登録のご案内', ko: '회원 등록 안내' },
-    heroText: { ja: 'Googleアカウントでログインし、ご本人のプロフィールをご登録ください。担当スタッフが内容を確認のうえご連絡いたします。', ko: 'Google 계정으로 로그인한 뒤 본인 프로필을 등록해 주세요. 담당자가 내용을 확인한 후 연락드립니다.' },
+    heroText: { ja: 'ログインして、ご本人のプロフィールをご登録ください。担当スタッフが内容を確認のうえご連絡いたします。', ko: '로그인한 뒤 본인 프로필을 등록해 주세요. 담당자가 내용을 확인한 후 연락드립니다.' },
+    orEmail: { ja: 'または メールアドレスで', ko: '또는 이메일 주소로' },
+    emailNote: { ja: 'Yahoo!メール・Outlook・NAVERメールなど、お使いのメールアドレスで登録できます。', ko: '네이버 메일·다음 메일·Yahoo!·Outlook 등 사용 중인 이메일 주소로 가입할 수 있습니다.' },
+    emailLogin: { ja: 'メールアドレスでログイン', ko: '이메일로 로그인' },
+    emailSignUp: { ja: 'メールアドレスで新規登録', ko: '이메일로 새로 가입' },
+    emailAddr: { ja: 'メールアドレス', ko: '이메일 주소' },
+    pw: { ja: 'パスワード', ko: '비밀번호' },
+    pwNew: { ja: 'パスワード（8文字以上）', ko: '비밀번호（8자 이상）' },
+    pwAgain: { ja: 'パスワード（確認用）', ko: '비밀번호（확인）' },
+    pwMismatch: { ja: '確認用のパスワードが一致しません。', ko: '확인용 비밀번호가 일치하지 않습니다.' },
+    pwForgot: { ja: 'パスワードを忘れた方', ko: '비밀번호를 잊으셨나요?' },
+    pwForgotHint: { ja: 'メールアドレスを入力してから押してください。', ko: '이메일 주소를 입력한 뒤 눌러 주세요.' },
+    pwResetSent: { ja: '登録があれば、パスワード再設定のメールを送りました。メールをご確認ください。', ko: '등록된 주소라면 비밀번호 재설정 메일을 보냈습니다. 메일을 확인해 주세요.' },
+    toSignUp: { ja: '初めての方：メールアドレスで新規登録', ko: '처음이신가요? 이메일로 새로 가입' },
+    toLogin: { ja: '登録済みの方：ログインへ戻る', ko: '이미 가입하셨나요? 로그인으로' },
+    verifyTitle: { ja: 'メールアドレスの確認', ko: '이메일 주소 확인' },
+    verifyText1: { ja: '確認メールを ', ko: '확인 메일을 ' },
+    verifyText2: { ja: ' に送りました。メール内のリンクを開いてから、下の「確認しました」を押してください。', ko: ' 으로 보냈습니다. 메일 안의 링크를 연 뒤 아래 「확인했습니다」를 눌러 주세요.' },
+    verifySpam: { ja: 'メールが届かない場合は、迷惑メールフォルダもご確認ください。', ko: '메일이 오지 않으면 스팸함도 확인해 주세요.' },
+    verifyDone: { ja: '確認しました', ko: '확인했습니다' },
+    verifyResend: { ja: '確認メールを再送する', ko: '확인 메일 다시 보내기' },
+    verifySent: { ja: '確認メールを再送しました。', ko: '확인 메일을 다시 보냈습니다.' },
+    verifyNotYet: { ja: 'まだ確認が済んでいません。メールのリンクを開いてください。', ko: '아직 확인되지 않았습니다. 메일의 링크를 열어 주세요.' },
     privacyNote: { ja: 'ご登録内容はご本人と当社スタッフだけが閲覧できます。ほかの会員に公開されることはありません。', ko: '등록하신 내용은 본인과 당사 직원만 볼 수 있으며, 다른 회원에게 공개되지 않습니다.' },
     chooseGender: { ja: 'ご登録区分を選んでください', ko: '등록 구분을 선택해 주세요' },
     femaleReg: { ja: '女性会員として登録', ko: '여성 회원으로 등록' },
@@ -98,12 +120,8 @@
     formOpen = false;
     KC.titleCount(0);
     if (!KC.configured) return page(el('p', { class: 'alert' }, t('notConfigured')));
-    if (!user) {
-      return page(el('section', { class: 'card hero' },
-        el('h1', {}, t('heroTitle')), el('p', {}, t('heroText')),
-        el('button', { type: 'button', onclick: () => KC.signIn().catch(KC.fail) }, t('login')),
-        el('p', { class: 'muted', style: 'margin-top:1.4em;font-size:.88rem' }, t('privacyNote'))));
-    }
+    if (!user) return loginView();
+    if (KC.needsVerification(user)) return verifyView();
     if (!appDoc) return chooseGender();
     if (appDoc.suspended) {
       return page(el('section', { class: 'card' }, el('h1', {}, t('suspendedTitle')), el('p', { class: 'alert' }, t('suspendedText'))));
@@ -126,7 +144,7 @@
   // Live updates for the member's own inquiries and introductions.
   function listen() {
     unsub.forEach((u) => u()); unsub = [];
-    if (!user || !appDoc || appDoc.suspended) return;
+    if (!user || !appDoc || appDoc.suspended || KC.needsVerification(user)) return;
     const refresh = () => { if (!formOpen) render(); };
     unsub.push(KC.db.collection('inquiries').where('uid', '==', user.uid).onSnapshot((s) => {
       inquiries = s.docs.map((d) => Object.assign({ id: d.id }, d.data())).sort((a, b) => KC.millis(b.createdAt) - KC.millis(a.createdAt));
@@ -245,6 +263,81 @@
     intros.filter((x) => x.status === 'open' && !x['seen' + side(x)]).forEach((x) => KC.db.collection('intros').doc(x.id).update({ ['seen' + side(x)]: true }).catch((e) => console.warn(e)));
   }
 
+  // Sign-in screen: Google, Microsoft (when set up) or any e-mail address with a password.
+  let loginMode = 'login';
+  function loginView() {
+    const busy = (btn, fn) => async () => { btn.disabled = true; try { await fn(); } catch (e) { KC.authFail(e); } btn.disabled = false; };
+    const google = el('button', { type: 'button', class: 'wide' }, t('login'));
+    google.addEventListener('click', busy(google, () => KC.signIn('google')));
+    const ms = KC.authOptions.microsoft ? el('button', { type: 'button', class: 'wide secondary' }, t('loginMicrosoft')) : null;
+    if (ms) ms.addEventListener('click', busy(ms, () => KC.signIn('microsoft')));
+
+    const signup = loginMode === 'signup';
+    const email = el('input', { type: 'email', id: 'login-email', autocomplete: 'email', required: true });
+    const pw = el('input', { type: 'password', id: 'login-pw', autocomplete: signup ? 'new-password' : 'current-password', minlength: 8, required: true });
+    const pw2 = signup ? el('input', { type: 'password', id: 'login-pw2', autocomplete: 'new-password', minlength: 8, required: true }) : null;
+    const submit = el('button', { type: 'submit', class: 'wide' }, signup ? t('emailSignUp') : t('emailLogin'));
+    const f = el('form', { class: 'login-form', novalidate: true },
+      el('label', { class: 'field', for: 'login-email' }, el('span', {}, t('emailAddr')), email),
+      el('label', { class: 'field', for: 'login-pw' }, el('span', {}, signup ? t('pwNew') : t('pw')), pw),
+      pw2 ? el('label', { class: 'field', for: 'login-pw2' }, el('span', {}, t('pwAgain')), pw2) : null,
+      submit);
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const addr = email.value.trim();
+      if (!addr) return KC.toast(t('authBadEmail'), true);
+      if (pw.value.length < 8) return KC.toast(t('authWeakPw'), true);
+      if (signup && pw.value !== pw2.value) return KC.toast(t('pwMismatch'), true);
+      busy(submit, () => (signup ? KC.emailSignUp(addr, pw.value) : KC.emailSignIn(addr, pw.value)))();
+    });
+    const forgot = el('button', { type: 'button', class: 'linklike' }, t('pwForgot'));
+    forgot.addEventListener('click', async () => {
+      const addr = email.value.trim();
+      if (!addr) { email.focus(); return KC.toast(t('pwForgotHint'), true); }
+      try { await KC.resetPassword(addr); KC.toast(t('pwResetSent')); }
+      catch (e) { if (e && e.code === 'auth/user-not-found') KC.toast(t('pwResetSent')); else KC.authFail(e); }
+    });
+    const switchMode = el('button', { type: 'button', class: 'linklike' }, signup ? t('toLogin') : t('toSignUp'));
+    switchMode.addEventListener('click', () => { loginMode = signup ? 'login' : 'signup'; render(); });
+
+    page(el('section', { class: 'card hero' },
+      el('h1', {}, t('heroTitle')), el('p', {}, t('heroText')),
+      el('div', { class: 'login-box' },
+        google, ms,
+        el('div', { class: 'or' }, el('span', {}, t('orEmail'))),
+        el('p', { class: 'muted small' }, t('emailNote')),
+        el('h2', {}, signup ? t('emailSignUp') : t('emailLogin')),
+        f,
+        el('div', { class: 'login-links' }, switchMode, signup ? null : forgot)),
+      el('p', { class: 'muted', style: 'margin-top:1.4em;font-size:.88rem' }, t('privacyNote'))));
+  }
+
+  // E-mail accounts must open the confirmation link before registering.
+  function verifyView() {
+    const done = el('button', { type: 'button' }, t('verifyDone'));
+    done.addEventListener('click', async () => {
+      done.disabled = true;
+      try {
+        await user.reload();
+        user = KC.auth.currentUser;
+        if (KC.needsVerification(user)) { KC.toast(t('verifyNotYet'), true); done.disabled = false; return; }
+        await user.getIdToken(true); // refresh so the security rules see the confirmed address
+        await load(); render(); listen();
+      } catch (e) { KC.authFail(e); done.disabled = false; }
+    });
+    const again = el('button', { type: 'button', class: 'secondary' }, t('verifyResend'));
+    again.addEventListener('click', async () => {
+      again.disabled = true;
+      try { await KC.resendVerification(); KC.toast(t('verifySent')); } catch (e) { KC.authFail(e); }
+      setTimeout(() => { again.disabled = false; }, 30000);
+    });
+    page(el('section', { class: 'card' },
+      el('h1', {}, t('verifyTitle')),
+      el('p', {}, t('verifyText1'), el('b', {}, user.email || ''), t('verifyText2')),
+      el('p', { class: 'muted small' }, t('verifySpam')),
+      el('div', { class: 'actions' }, done, again)));
+  }
+
   function chooseGender() {
     page(el('section', { class: 'card' },
       el('h1', {}, t('chooseGender')),
@@ -357,7 +450,7 @@
     KC.auth.onAuthStateChanged(async (u) => {
       user = u; appDoc = null; photo = null; inquiries = []; intros = [];
       Object.keys(cards).forEach((k) => delete cards[k]);
-      if (u) {
+      if (u && !KC.needsVerification(u)) {
         page(el('p', { class: 'muted' }, t('loading')));
         try { await load(); } catch (e) { KC.fail(e); }
       }

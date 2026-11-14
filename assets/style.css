@@ -116,3 +116,15 @@ footer { text-align: center; color: var(--muted); font-size: .8rem; padding: 24p
   .hero h1 { font-size: 1.35rem; }
   .introcard { grid-template-columns: 1fr; }
 }
+
+/* Sign-in screen */
+.login-box { max-width: 380px; margin: 0 auto; text-align: left; display: grid; gap: 10px; }
+.login-box h2 { font-size: 1rem; margin: 6px 0 0; }
+button.wide { width: 100%; }
+.login-form { display: grid; gap: 10px; }
+.or { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: .85rem; margin-top: 8px; }
+.or::before, .or::after { content: ''; flex: 1; border-top: 1px solid var(--line); }
+.small { font-size: .85rem; }
+.login-box p.small { margin: 0; text-align: left; }
+.login-links { display: grid; gap: 4px; justify-items: start; }
+button.linklike { background: none; border: 0; padding: 4px 0; min-height: 0; color: var(--accent); text-decoration: underline; border-radius: 0; text-align: left; }
