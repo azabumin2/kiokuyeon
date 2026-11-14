@@ -69,6 +69,12 @@ GitHub Pages(화면) + Firebase(Google 로그인·Firestore 데이터 저장)로
    | (空欄) | A | 185.199.110.153 |
    | (空欄) | A | 185.199.111.153 |
    | www | CNAME | azabumin2.github.io |
+   | (空欄) | TXT | v=spf1 include:_spf.firebasemail.com ~all |
+   | (空欄) | TXT | firebase=kiokuyeon |
+   | firebase1._domainkey | CNAME | mail-kiokuyeon-com.dkim1._domainkey.firebasemail.com |
+   | firebase2._domainkey | CNAME | mail-kiokuyeon-com.dkim2._domainkey.firebasemail.com |
+
+   아래 4줄(TXT·`_domainkey`)은 Firebase 인증 메일(확인 메일·비밀번호 재설정)을 `未来結婚情報 <noreply@kiokuyeon.com>`으로 보내기 위한 것입니다(2026-11-14 설정, Authentication → テンプレート). 지우면 메일 발신이 실패할 수 있습니다.
 
 2. GitHub 저장소 Settings → Pages → **Custom domain**에 `kiokuyeon.com` 입력 → Save → DNS 확인 후 **Enforce HTTPS** 체크.
 3. Firebase Authentication의 승인된 도메인에 `kiokuyeon.com`, `www.kiokuyeon.com` 추가.
