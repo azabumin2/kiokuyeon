@@ -260,14 +260,15 @@
     const act = async (fn) => { try { await fn(); KC.toast(t('saved')); route(); } catch (e) { KC.fail(e); } };
     const actions = el('div', { class: 'actions' });
     if (a.status !== 'approved') {
-      actions.append(
+      // Native append() turns null into the text "null", so drop the buttons that don't apply.
+      actions.append(...[
         el('button', { type: 'button', onclick: () => { if (confirm(t('confirmApprove'))) act(() => approve(uid, a)); } }, t('approve')),
         a.status === 'submitted' ? el('button', { type: 'button', class: 'secondary', onclick: () => act(() => ref.update(Object.assign({ status: 'reviewing' }, stamp()))) }, t('toReviewing')) : null,
         el('button', { type: 'button', class: 'secondary', onclick: () => {
           if (!note.value.trim()) return KC.toast(t('noteRequired'), true);
           act(() => ref.update(Object.assign({ status: 'returned', reviewNote: note.value.trim() }, stamp())));
         } }, t('returnReq')),
-        a.status !== 'rejected' ? el('button', { type: 'button', class: 'danger', onclick: () => { if (confirm(t('confirmReject'))) act(() => ref.update(Object.assign({ status: 'rejected' }, stamp()))); } }, t('reject')) : null);
+        a.status !== 'rejected' ? el('button', { type: 'button', class: 'danger', onclick: () => { if (confirm(t('confirmReject'))) act(() => ref.update(Object.assign({ status: 'rejected' }, stamp()))); } }, t('reject')) : null].filter(Boolean));
     } else if (a.memberId) {
       actions.append(el('a', { class: 'button', href: '#/member/' + a.memberId }, t('approvedTo')));
     }
