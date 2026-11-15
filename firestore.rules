@@ -121,6 +121,30 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Public homepage settings (fees, links, videos, insurance period …). Anyone reads, staff edit.
+    match /site/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Consultation requests from the public homepage (no sign-in). Create only, strictly shaped.
+    function shortStr(v, lo, hi) { return v is string && v.size() >= lo && v.size() <= hi; }
+    match /consults/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['nickname', 'region', 'age', 'method', 'contact', 'body', 'consent', 'lang', 'status', 'createdAt'])
+        && request.resource.data.keys().hasAll(['nickname', 'region', 'age', 'method', 'contact', 'body', 'consent', 'lang', 'status', 'createdAt'])
+        && shortStr(request.resource.data.nickname, 1, 40)
+        && shortStr(request.resource.data.region, 1, 60)
+        && request.resource.data.age in ['20s', '30s', '40s', '50s', '60s+']
+        && request.resource.data.method in ['line', 'kakao', 'email', 'phone']
+        && shortStr(request.resource.data.contact, 3, 120)
+        && shortStr(request.resource.data.body, 1, 2000)
+        && request.resource.data.consent == true
+        && request.resource.data.lang in ['ja', 'ko', 'en']
+        && request.resource.data.status == 'new'
+        && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if isAdmin();
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
