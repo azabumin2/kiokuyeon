@@ -99,7 +99,7 @@ T = {
     'faq4_q': 'Will other members see my profile?',
     'faq4_a': 'No. Only you and our staff can see it. Even when we introduce someone, we do not share names or contact details.',
     'faq5_q': 'How much does it cost?',
-    'faq5_a': 'Fees are explained on the How It Works & Fees page, and in detail during your consultation.',
+    'faq5_a': 'Our service is completely free of charge for women members. For men members, fees are explained during the personal consultation.',
     'faq6_q': 'Can my family join the consultation?',
     'faq6_a': 'Yes. We welcome questions from family members too. Please mention it in your request.',
     'faq7_q': 'Do you help with marriage procedures?',
@@ -167,7 +167,7 @@ T = {
 
     'fees_sec_h': 'Fees and contract',
     'fees_h': 'Fees',
-    'fees_empty': 'Fees are explained in writing during your personal consultation.',
+    'fees_empty': 'Women members: completely free of charge.  Men members: fees are explained during the personal consultation.',
     'party_h': 'Contract and contact',
     'party_contract': 'Contracting party',
     'party_pay': 'Payment recipient',
