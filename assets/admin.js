@@ -113,6 +113,37 @@
     ev_resp: { ja: '紹介に回答：', ko: '소개에 응답: ' },
     ev_inquiry: { ja: '問い合わせ：', ko: '문의: ' },
     ev_reply: { ja: '問い合わせに返事：', ko: '문의에 답변: ' },
+    navConsults: { ja: '相談申込', ko: '상담 신청' },
+    navSettings: { ja: 'サイト設定', ko: '사이트 설정' },
+    newConsults: { ja: '新しい相談申込', ko: '새 상담 신청' },
+    cs_new: { ja: '新規', ko: '신규' }, cs_contacted: { ja: '連絡済み', ko: '연락함' }, cs_done: { ja: '完了', ko: '완료' },
+    nickname: { ja: '呼び名', ko: '부를 이름' }, residence: { ja: '国・地域', ko: '나라·지역' }, ageGroup: { ja: '年代', ko: '연령대' },
+    contactMethod: { ja: '希望の連絡方法', ko: '원하는 연락 방법' }, contactInfo: { ja: '連絡先', ko: '연락처' },
+    pageLang: { ja: 'ページの言語', ko: '페이지 언어' }, staffMemo: { ja: 'スタッフメモ（本人には見えません）', ko: '직원 메모(본인에게 보이지 않음)' },
+    consultDetail: { ja: '相談申込の詳細', ko: '상담 신청 상세' },
+    st_intro: { ja: 'ホームページ（kiokuyeon.com）に表示する値です。空欄の項目は公開ページに表示されません。', ko: '홈페이지(kiokuyeon.com)에 표시할 값입니다. 비워 둔 항목은 공개 페이지에 나오지 않습니다.' },
+    st_free: { ja: '個別相談の無料表示', ko: '개별 상담 무료 표시' }, st_unset: { ja: '未定（表示しない）', ko: '미정(표시 안 함)' },
+    st_freeYes: { ja: '無料と表示する', ko: '무료로 표시' }, st_freeNo: { ja: '表示しない（有料）', ko: '표시 안 함(유료)' },
+    st_fees: { ja: '料金の案内文', ko: '요금 안내 문구' },
+    st_links: { ja: '相談窓口のリンク（https://で始まるURL）', ko: '상담 창구 링크(https://로 시작하는 주소)' },
+    st_line: { ja: 'LINE（日本語ページに表示）', ko: 'LINE(일본어 페이지에 표시)' }, st_kakao: { ja: 'カカオトーク（韓国語ページに表示）', ko: '카카오톡(한국어 페이지에 표시)' },
+    st_badUrl: { ja: 'リンクは https:// で始まるURLにしてください。', ko: '링크는 https://로 시작하는 주소로 입력해 주세요.' },
+    st_staff: { ja: '対応言語・対応時間・通訳費用', ko: '대응 언어·대응 시간·통역 비용' },
+    st_japan: { ja: '日本の連絡事務所', ko: '일본 연락사무소' },
+    jp_none: { ja: 'なし（言及しない）', ko: '없음(언급 안 함)' }, jp_preparing: { ja: '開設準備中', ko: '개설 준비 중' }, jp_open: { ja: '開設済み（住所を表示）', ko: '개설됨(주소 표시)' },
+    st_jpAddr: { ja: '住所', ko: '주소' },
+    st_videos: { ja: 'ご夫婦の動画（YouTube）', ko: '부부 영상(YouTube)' },
+    st_videosNote: { ja: '1本目が大きく表示されます。ご本人の掲載許可を確認したものだけ登録してください。', ko: '첫 번째 영상이 크게 표시됩니다. 본인의 게재 허락을 확인한 영상만 등록해 주세요.' },
+    st_vUrl: { ja: 'YouTubeのURL', ko: 'YouTube 주소' }, st_vCountry: { ja: '対象国（日本以外の事例は必ず記入）', ko: '대상 국가(일본 외 사례는 꼭 입력)' },
+    st_vTitle: { ja: 'タイトル', ko: '제목' }, st_vNote: { ja: '紹介文', ko: '소개 문구' },
+    st_vPerm: { ja: '掲載許可を確認しました', ko: '게재 허락을 확인했습니다' },
+    st_vBad: { ja: 'YouTubeのURLが正しくありません：', ko: 'YouTube 주소가 올바르지 않습니다: ' },
+    st_vNoPerm: { ja: '掲載許可の確認がない動画は保存できません：', ko: '게재 허락 확인이 없는 영상은 저장할 수 없습니다: ' },
+    st_addVideo: { ja: '動画を追加', ko: '영상 추가' }, up: { ja: '上へ', ko: '위로' },
+    st_ins: { ja: '保証保険', ko: '보증보험' }, st_insAmount: { ja: '加入金額（ウォン）', ko: '가입금액(원)' },
+    st_insFrom: { ja: '開始日', ko: '시작일' }, st_insTo: { ja: '終了日', ko: '종료일' },
+    insWarn: { ja: '保証保険の終了日まで残り{n}日です。更新を確認し、サイト設定の期間を更新してください。', ko: '보증보험 종료일까지 {n}일 남았습니다. 갱신을 확인하고 사이트 설정의 기간을 고쳐 주세요.' },
+    insExpired: { ja: '保証保険の期間が終了しています（ホームページでは非表示）。更新後、サイト設定の期間を更新してください。', ko: '보증보험 기간이 끝났습니다(홈페이지에서 숨김). 갱신 후 사이트 설정의 기간을 고쳐 주세요.' },
   });
 
   const app = document.getElementById('app');
@@ -122,7 +153,7 @@
   const STATUS_FIELD = KF.ADMIN.find((f) => f.k === 'status');
 
   // Live counts for the header badges (kept up to date by Firestore listeners).
-  let liveInq = [], liveIntros = [], unsub = [];
+  let liveInq = [], liveIntros = [], liveConsults = 0, unsub = [];
   const isMeet = (x) => x.status === 'open' && x.respA === 'yes' && x.respB === 'yes';
   const newCount = () => liveInq.length;
   const reportCount = () => liveInq.filter((q) => q.kind === 'report').length;
@@ -131,18 +162,20 @@
     unsub.forEach((u) => u()); unsub = [];
     if (!isAdmin) return;
     const refresh = () => {
-      KC.titleCount(newCount() + meetCount());
+      KC.titleCount(newCount() + meetCount() + liveConsults);
       const h = app.querySelector('header.top');
       if (h) h.replaceWith(header());
       if (['', '#/', '#'].includes(location.hash) && app.querySelector('.stats')) dashboard().catch(KC.fail);
     };
     unsub.push(col('inquiries').where('status', '==', 'new').onSnapshot((s) => { liveInq = s.docs.map((d) => d.data()); refresh(); }, (e) => console.warn(e)));
     unsub.push(col('intros').where('status', '==', 'open').onSnapshot((s) => { liveIntros = s.docs.map((d) => d.data()); refresh(); }, (e) => console.warn(e)));
+    unsub.push(col('consults').where('status', '==', 'new').onSnapshot((s) => { liveConsults = s.size; refresh(); }, (e) => console.warn(e)));
   }
 
   function header() {
     const nav = isAdmin ? [['#/', t('navHome')], ['#/apps', t('navApps')], ['#/inquiries', t('navInq'), KC.count(newCount(), reportCount() > 0)],
-      ['#/intros', t('navIntros'), KC.count(meetCount())], ['#/members?g=female', t('navWomen')], ['#/members?g=male', t('navMen')]] : [];
+      ['#/intros', t('navIntros'), KC.count(meetCount())], ['#/consults', t('navConsults'), KC.count(liveConsults)],
+      ['#/members?g=female', t('navWomen')], ['#/members?g=male', t('navMen')], ['#/settings', t('navSettings')]] : [];
     return el('header', { class: 'top' }, el('div', { class: 'top-inner' },
       el('a', { class: 'brand', href: '#/' }, t('brand'), el('small', {}, t('adminTitle'))),
       el('nav', { class: 'tabs', style: 'margin:0' }, nav.map(([h, label, n]) => {
@@ -188,17 +221,25 @@
       if (parts[0] === 'intros') return await introList();
       if (parts[0] === 'intro' && parts[1]) return await introDetail(parts[1]);
       if (parts[0] === 'member' && parts[1]) return await memberDetail(parts[1]);
+      if (parts[0] === 'consults') return await consultList();
+      if (parts[0] === 'consult' && parts[1]) return await consultDetail(parts[1]);
+      if (parts[0] === 'settings') return await settingsPage();
       go('#/');
     } catch (e) { KC.fail(e); page(el('p', { class: 'alert' }, t('error'))); }
   }
 
   // ---------- Dashboard ----------
   async function dashboard() {
-    const [apps, members] = await Promise.all([col('applications').get(), col('members').get()]);
+    const [apps, members, site] = await Promise.all([col('applications').get(), col('members').get(), col('site').doc('settings').get()]);
+    const ins = (site.exists ? site.data().insurance : null) || { to: '2027-08-25' };
+    const left = KS.daysUntil(ins.to);
+    const insAlert = left == null ? null : left < 0 ? el('p', { class: 'alert' }, el('a', { href: '#/settings' }, t('insExpired')))
+      : left <= 60 ? el('p', { class: 'alert' }, el('a', { href: '#/settings' }, t('insWarn').replace('{n}', left))) : null;
     const a = apps.docs.map((d) => d.data()), m = members.docs.map((d) => d.data());
     const stat = (n, label, href, red) => el('a', { class: 'stat', href, style: red && n ? 'border-color:var(--bad);color:var(--bad)' : null }, el('b', {}, String(n)), label);
-    page(el('h1', {}, t('adminTitle')), el('div', { class: 'stats' },
+    page(el('h1', {}, t('adminTitle')), insAlert, el('div', { class: 'stats' },
       stat(reportCount(), t('reports'), '#/inquiries?status=new', true),
+      stat(liveConsults, t('newConsults'), '#/consults?status=new'),
       stat(newCount(), t('newInq'), '#/inquiries?status=new'),
       stat(meetCount(), t('meetNeeded'), '#/intros?tab=meet'),
       stat(a.filter((x) => ['submitted', 'reviewing'].includes(x.status)).length, t('pending'), '#/apps?status=open'),
@@ -800,6 +841,154 @@
     page(f);
   }
 
+  // ---------- Consultation requests from the homepage ----------
+  const CONSULT_ST = ['new', 'contacted', 'done'];
+  const AGE = { '20s': ['20代', '20대'], '30s': ['30代', '30대'], '40s': ['40代', '40대'], '50s': ['50代', '50대'], '60s+': ['60代以上', '60대 이상'] };
+  const METHOD = { line: ['LINE', 'LINE'], kakao: ['カカオトーク', '카카오톡'], email: ['メール', '이메일'], phone: ['電話', '전화'] };
+  const LANGNAME = { ja: ['日本語', '일본어'], ko: ['韓国語', '한국어'], en: ['英語', '영어'] };
+  const pick = (map, k) => (map[k] ? map[k][KC.lang === 'ko' ? 1 : 0] : (k || ''));
+  const csBadge = (s) => badge(s === 'new' ? 'new' : s === 'done' ? 'done' : 'open', t('cs_' + s));
+
+  async function consultList() {
+    const filter = params().get('status') || 'new';
+    const snap = await col('consults').orderBy('createdAt', 'desc').get();
+    const list = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((c) => filter === 'all' || c.status === filter);
+    const tabs = CONSULT_ST.map((s) => [s, t('cs_' + s)]).concat([['all', t('all')]]);
+    page(el('h1', {}, t('navConsults')),
+      el('nav', { class: 'tabs' }, tabs.map(([k, label]) => el('a', { href: '#/consults?status=' + k, class: k === filter ? 'on' : '' }, label))),
+      rows(list.map((c) => ({ id: c.id, cells: [c.nickname || '', c.region || '', pick(AGE, c.age), pick(METHOD, c.method),
+        (c.body || '').slice(0, 30), csBadge(c.status), KC.fmtTime(c.createdAt)] })),
+      [t('nickname'), t('residence'), t('ageGroup'), t('contactMethod'), t('body'), t('status'), t('received')], (it) => go('#/consult/' + it.id)));
+  }
+
+  async function consultDetail(id) {
+    const ref = col('consults').doc(id);
+    const snap = await ref.get();
+    if (!snap.exists) return page(el('p', { class: 'alert' }, t('none')));
+    const c = snap.data();
+    const memo = el('textarea', { id: 'cs-memo', rows: 4, maxlength: 2000 });
+    memo.value = c.memo || '';
+    const stSel = el('select', { id: 'cs-status' }, CONSULT_ST.map((s) => el('option', { value: s, selected: s === (c.status === 'new' ? 'contacted' : c.status) }, t('cs_' + s))));
+    const saveBtn = el('button', { type: 'button' }, t('save'));
+    saveBtn.addEventListener('click', async () => {
+      saveBtn.disabled = true;
+      try { await ref.update({ status: stSel.value, memo: memo.value.trim(), updatedAt: KC.ts(), updatedBy: user.email || user.uid }); KC.toast(t('saved')); go('#/consults'); }
+      catch (e) { KC.fail(e); saveBtn.disabled = false; }
+    });
+    const dl = el('dl', { class: 'view' },
+      el('dt', {}, t('nickname')), el('dd', {}, c.nickname || ''),
+      el('dt', {}, t('residence')), el('dd', {}, c.region || ''),
+      el('dt', {}, t('ageGroup')), el('dd', {}, pick(AGE, c.age)),
+      el('dt', {}, t('contactMethod')), el('dd', {}, pick(METHOD, c.method)),
+      el('dt', {}, t('contactInfo')), el('dd', {}, c.contact || ''),
+      el('dt', {}, t('pageLang')), el('dd', {}, pick(LANGNAME, c.lang)),
+      el('dt', {}, t('received')), el('dd', {}, KC.fmtTime(c.createdAt)),
+      el('dt', {}, t('body')), el('dd', { style: 'white-space:pre-wrap' }, c.body || ''));
+    page(el('p', {}, el('a', { href: '#/consults' }, '← ', t('navConsults'))),
+      el('section', { class: 'card' }, el('h1', {}, t('consultDetail')), el('p', {}, csBadge(c.status)), dl,
+        el('label', { class: 'field wide', for: 'cs-memo', style: 'margin-top:16px' }, el('span', {}, t('staffMemo')), memo),
+        el('label', { class: 'field', for: 'cs-status', style: 'max-width:260px;margin-top:12px' }, el('span', {}, t('status')), stSel),
+        el('div', { class: 'actions' }, saveBtn,
+          el('button', { type: 'button', class: 'danger', onclick: async () => {
+            if (!confirm(t('confirmDelete'))) return;
+            try { await ref.delete(); go('#/consults'); } catch (e) { KC.fail(e); }
+          } }, t('delete')))));
+  }
+
+  // ---------- Homepage settings (Firestore site/settings, read by site/site.js) ----------
+  async function settingsPage() {
+    const ref = col('site').doc('settings');
+    const snap = await ref.get();
+    const s = snap.exists ? snap.data() : {};
+    const LANGS = ['ja', 'ko', 'en'];
+    const inp = (id, value, attrs) => { const n = el('input', Object.assign({ id }, attrs || {})); n.value = value == null ? '' : String(value); return n; };
+    const area = (id, value) => { const n = el('textarea', { id, rows: 2, maxlength: 600 }); n.value = value || ''; return n; };
+    const field = (label, control, wide) => el('label', { class: 'field' + (wide ? ' wide' : ''), for: control.id }, el('span', {}, label), control);
+    // Three text areas (ja / ko / en) whose ids start with key.
+    const tri = (key, label, m) => LANGS.map((l) => field(label + '（' + l.toUpperCase() + '）', area(key + '-' + l, (m || {})[l]), true));
+    const readTri = (form, key) => { const o = {}; LANGS.forEach((l) => { const v = form.querySelector('#' + key + '-' + l).value.trim(); if (v) o[l] = v; }); return o; };
+
+    const free = el('select', { id: 'st-free' },
+      el('option', { value: '', selected: s.freeConsult == null }, t('st_unset')),
+      el('option', { value: 'true', selected: s.freeConsult === true }, t('st_freeYes')),
+      el('option', { value: 'false', selected: s.freeConsult === false }, t('st_freeNo')));
+    const jo = s.japanOffice || {};
+    const jpSel = el('select', { id: 'st-jp' }, ['none', 'preparing', 'open'].map((k) => el('option', { value: k, selected: (jo.status || 'none') === k }, t('jp_' + k))));
+    const ins = s.insurance || { amount: 50000000, from: '2026-08-26', to: '2027-08-25' };
+
+    // Video rows (order = display order; the first one is shown large).
+    const videoBox = el('div');
+    let vid = 0;
+    function videoRow(v) {
+      v = v || {};
+      const k = 'v' + (vid++);
+      const row = el('div', { class: 'card', style: 'margin:10px 0', 'data-video': k },
+        el('div', { class: 'form-grid' },
+          field(t('st_vUrl'), inp(k + '-url', v.youtubeId ? 'https://youtu.be/' + v.youtubeId : '', { placeholder: 'https://www.youtube.com/watch?v=…' }), true),
+          field(t('st_vCountry'), inp(k + '-country', v.country, { maxlength: 40 })),
+          ...LANGS.map((l) => field(t('st_vTitle') + '（' + l.toUpperCase() + '）', inp(k + '-t-' + l, (v.title || {})[l], { maxlength: 120 }))),
+          ...LANGS.map((l) => field(t('st_vNote') + '（' + l.toUpperCase() + '）', area(k + '-n-' + l, (v.note || {})[l]), true))),
+        el('label', { class: 'check', for: k + '-perm' }, el('input', { type: 'checkbox', id: k + '-perm', checked: v.permission === true }), el('span', {}, t('st_vPerm'))),
+        el('div', { class: 'actions' },
+          el('button', { type: 'button', class: 'secondary', onclick: () => { if (row.previousElementSibling) row.parentNode.insertBefore(row, row.previousElementSibling); } }, t('up')),
+          el('button', { type: 'button', class: 'danger', onclick: () => row.remove() }, t('delete'))));
+      videoBox.append(row);
+    }
+    (s.videos || []).forEach(videoRow);
+
+    const f = el('form', { class: 'card', novalidate: true });
+    const saveBtn = el('button', { type: 'submit' }, t('save'));
+    f.append(el('h1', {}, t('navSettings')), el('p', { class: 'muted' }, t('st_intro')),
+      el('h2', {}, t('st_free')), el('div', { class: 'form-grid' }, field(t('st_free'), free)),
+      el('h2', {}, t('st_fees')), el('div', { class: 'form-grid' }, ...tri('st-fees', t('st_fees'), s.fees)),
+      el('h2', {}, t('st_links')), el('div', { class: 'form-grid' },
+        field(t('st_line'), inp('st-line', s.lineUrl, { type: 'url', placeholder: 'https://line.me/…' })),
+        field(t('st_kakao'), inp('st-kakao', s.kakaoUrl, { type: 'url', placeholder: 'https://open.kakao.com/…' }))),
+      el('h2', {}, t('st_staff')), el('div', { class: 'form-grid' }, ...tri('st-staff', t('st_staff'), s.staffInfo)),
+      el('h2', {}, t('st_japan')), el('div', { class: 'form-grid' }, field(t('st_japan'), jpSel), ...tri('st-jpaddr', t('st_jpAddr'), jo.address)),
+      el('h2', {}, t('st_videos')), el('p', { class: 'muted' }, t('st_videosNote')), videoBox,
+      el('button', { type: 'button', class: 'secondary', onclick: () => videoRow() }, t('st_addVideo')),
+      el('h2', {}, t('st_ins')), el('div', { class: 'form-grid' },
+        field(t('st_insAmount'), inp('st-ins-amount', ins.amount, { type: 'number', min: 0, step: 1 })),
+        field(t('st_insFrom'), inp('st-ins-from', ins.from, { type: 'date' })),
+        field(t('st_insTo'), inp('st-ins-to', ins.to, { type: 'date' }))),
+      el('div', { class: 'actions' }, saveBtn));
+
+    f.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const val = (id) => f.querySelector('#' + id).value.trim();
+      const lineUrl = val('st-line'), kakaoUrl = val('st-kakao');
+      if ([lineUrl, kakaoUrl].some((u) => u && !/^https:\/\/\S+$/.test(u))) return KC.toast(t('st_badUrl'), true);
+      const videos = [];
+      for (const row of videoBox.querySelectorAll('[data-video]')) {
+        const k = row.dataset.video;
+        const url = val(k + '-url');
+        if (!url) continue;
+        const id = KS.parseYouTubeId(url);
+        if (!id) return KC.toast(t('st_vBad') + url, true);
+        if (!f.querySelector('#' + k + '-perm').checked) return KC.toast(t('st_vNoPerm') + url, true);
+        const title = {}, note = {};
+        LANGS.forEach((l) => { const a = val(k + '-t-' + l), b = val(k + '-n-' + l); if (a) title[l] = a; if (b) note[l] = b; });
+        videos.push({ youtubeId: id, country: val(k + '-country'), title, note, permission: true });
+      }
+      const fv = val('st-free');
+      const data = {
+        freeConsult: fv === '' ? null : fv === 'true',
+        fees: readTri(f, 'st-fees'),
+        lineUrl, kakaoUrl,
+        staffInfo: readTri(f, 'st-staff'),
+        japanOffice: { status: val('st-jp'), address: readTri(f, 'st-jpaddr') },
+        videos,
+        insurance: { amount: Number(val('st-ins-amount')) || 0, from: val('st-ins-from'), to: val('st-ins-to') },
+        updatedAt: KC.ts(), updatedBy: user.email || user.uid,
+      };
+      saveBtn.disabled = true;
+      try { await ref.set(data); KC.toast(t('saved')); route(); }
+      catch (e) { KC.fail(e); saveBtn.disabled = false; }
+    });
+    page(f);
+  }
+
   window.addEventListener('hashchange', route);
   route();
   if (KC.auth) {
@@ -809,7 +998,7 @@
       if (u) {
         try { isAdmin = (await col('admins').doc(u.uid).get()).exists; } catch (e) { isAdmin = false; }
       }
-      liveInq = []; liveIntros = [];
+      liveInq = []; liveIntros = []; liveConsults = 0;
       listen();
       route();
     });
