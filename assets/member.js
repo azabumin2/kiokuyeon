@@ -46,6 +46,7 @@
     lockedNote: { ja: '登録内容の変更をご希望の場合は担当スタッフにご連絡ください。', ko: '등록 내용 변경을 원하시면 담당자에게 연락해 주세요.' },
     thanks: { ja: 'ご登録ありがとうございました。担当スタッフからのご連絡をお待ちください。', ko: '등록해 주셔서 감사합니다. 담당자의 연락을 기다려 주세요.' },
     adminLink: { ja: 'スタッフ用ページ', ko: '직원용 페이지' },
+    siteHome: { ja: 'ホームページ', ko: '홈페이지' },
     signedInAs: { ja: 'ログイン中：', ko: '로그인: ' },
     tabMine: { ja: '登録内容', ko: '내 등록' },
     tabAsk: { ja: 'お問い合わせ・相談', ko: '문의·상담' },
@@ -104,7 +105,7 @@
   }
   function page(...children) {
     app.replaceChildren(header(), el('main', { class: 'narrow' }, ...children),
-      el('footer', {}, '© ', t('brand'), ' · ', el('a', { href: 'admin.html' }, t('adminLink'))));
+      el('footer', {}, '© ', t('brand'), ' · ', el('a', { href: '/' + (KC.lang === 'ko' ? 'ko' : 'ja') + '/' }, t('siteHome')), ' · ', el('a', { href: '/admin.html' }, t('adminLink'))));
   }
 
   async function load() {

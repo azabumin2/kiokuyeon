@@ -4,3 +4,5 @@
 *.log
 .firebase/
 node_modules/
+.superpowers/
+site-src/img-src/
