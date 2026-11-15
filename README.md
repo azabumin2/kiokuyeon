@@ -1,13 +1,24 @@
-# kiokuyeon — 未来結婚情報 会員登録・管理サイト
+# kiokuyeon — 기억・연 Kiokuyeon 홈페이지 + 会員登録・管理サイト
 
 GitHub Pages(화면) + Firebase(Google 로그인·Firestore 데이터 저장)로 동작하는 한일 국제결혼 회원 등록·관리 사이트입니다. 서버를 따로 운영하지 않아도 휴대폰·PC, 한국·일본 어디서나 접속할 수 있습니다. 화면은 일본어/한국어를 전환할 수 있습니다.
 
 | 화면 | 주소 | 사용하는 사람 |
 |---|---|---|
-| 회원 등록 | `https://kiokuyeon.com/` (`index.html`) | 일반 남성·여성 회원. **Google 로그인 또는 이메일+비밀번호**(네이버·Yahoo·Outlook 등 어떤 메일이든 가능, 가입 시 메일 인증 필수)·Microsoft 로그인(설정 후) 후 본인 프로필·사진 등록, 진행 상황 확인, 수정 요청 시 재제출. **문의·상담 예약·신고** 보내기와 답변 확인, 직원이 **소개한 상대** 확인 후 「만나 보고 싶음/사양」 응답 |
-| 관리자 화면 | `https://kiokuyeon.com/admin.html` | 직원. 등록 신청 검토(승인·수정 요청·반려), 남녀 회원 목록·검색·상세·편집, 상담·교제 기록, 사진 관리. **미확인 문의·상담 배지**(신고는 빨간색), **소개하기**와 응답 현황(양쪽 수락 시 「만남 조율 필요」), **이용 정지·소개 제외**, 회원별 **활동 이력** |
+| 브랜드 홈페이지 | `https://kiokuyeon.com/` → `/ja/` `/ko/` `/en/` | 일반 방문자. 3개 언어 × 10페이지(톱·記憶縁について·サービス·流れ料金·ストーリー·コラム·FAQ·運営者情報·個別相談·プライバシー). **개별 상담 신청서**(로그인 없이) |
+| 회원 등록 | `https://kiokuyeon.com/join/` (`join/index.html`) | 일반 남성·여성 회원. **Google 로그인 또는 이메일+비밀번호**(네이버·Yahoo·Outlook 등 어떤 메일이든 가능, 가입 시 메일 인증 필수)·Microsoft 로그인(설정 후) 후 본인 프로필·사진 등록, 진행 상황 확인, 수정 요청 시 재제출. **문의·상담 예약·신고** 보내기와 답변 확인, 직원이 **소개한 상대** 확인 후 「만나 보고 싶음/사양」 응답 |
+| 관리자 화면 | `https://kiokuyeon.com/admin.html` | 직원. **相談申込**(홈페이지 상담 신청, 새 건 배지·상태·메모), **サイト設定**(홈페이지에 표시할 값), 보증보험 종료 60일 전 경고. 등록 신청 검토(승인·수정 요청·반려), 남녀 회원 목록·검색·상세·편집, 상담·교제 기록, 사진 관리. **미확인 문의·상담 배지**(신고는 빨간색), **소개하기**와 응답 현황(양쪽 수락 시 「만남 조율 필요」), **이용 정지·소개 제외**, 회원별 **활동 이력** |
 
 알림은 화면 배지 방식입니다(관리자·회원 화면을 열어 두면 실시간 반영, 브라우저 탭 제목에 건수 표시). 이메일·푸시 알림은 Firebase 유료 요금제(Blaze) 또는 별도 메일 서비스가 필요해 이번에는 넣지 않았습니다.
+
+## 홈페이지 (2026-11-15)
+
+- 문장: `site-src/text_ja.py`, `text_ko.py`, `text_en.py` (세 파일의 키가 같아야 함). 구조: `site-src/templates.py`. 디자인: `site/site.css`. 동작: `site/site.js`.
+- 고친 뒤 `python site-src/build.py`로 `index.html`·`ja/`·`ko/`·`en/`을 다시 만들고, `python tools/check_site.py`(링크·금지 표현·생년월일 노출 검사)가 0 problems인지 확인한 뒤 커밋합니다. CSS/JS를 바꾸면 `build.py`의 `VERSION`도 올립니다.
+- 이미지: `site/img/` (OpenAI 이미지 API로 생성, 인물 사진은 「イメージ写真」 표기). 원본 PNG는 `site-src/img-src/`(커밋 안 함).
+- **관리자 「サイト設定」 값** (Firestore `site/settings`, 누구나 읽기·관리자만 쓰기): 상담 무료 표시(미정이면 숨김), 요금 문구(ja/ko/en), LINE(일본어 페이지)·카카오톡(한국어 페이지) 링크(https만), 대응 언어·시간, 일본 연락사무소 상태(없음/준비 중/개설), YouTube 영상(게재 허가 체크 필수, 첫 번째가 대표, 일본 외 사례는 대상 국가), 보증보험 금액·기간(종료일이 지나면 홈페이지에서 자동으로 숨김). 비워 둔 값은 공개 화면에 나오지 않습니다.
+- 상담 신청은 Firestore `consults`에 저장됩니다(누구나 생성만, 항목·길이 검증; 읽기·수정은 관리자만).
+- 등록증·보험증권 이미지: `python tools/mask_docs.py <PDF폴더> <출력폴더>`로 생년월일·주민번호·대리점 담당자 정보를 가린 이미지를 만듭니다. **게시 전 반드시 눈으로 확인.**
+- 설계: `docs/superpowers/specs/2026-11-15-brand-homepage-design.md` (6장: 공개 전 확인 목록).
 
 ## 데이터와 권한 (firestore.rules)
 
@@ -21,6 +32,8 @@ GitHub Pages(화면) + Firebase(Google 로그인·Firestore 데이터 저장)로
 | `members/{id}/activity` | 직원 행동 이력(승인·소개·정지·소개 제외·답변) | 관리자만 |
 | `inquiries/{id}` | 회원의 1:1 문의·상담 예약·신고와 직원 답변 | 본인(읽기·보내기, 정지 시 불가) / 관리자 |
 | `intros/{id}` | 직원이 만든 소개와 양쪽 응답(이름 없음) | 소개된 두 회원(자기 응답 1회만) / 관리자 |
+| `site/settings` | 홈페이지 설정값 | 누구나 읽기 / 관리자 |
+| `consults/{id}` | 홈페이지 상담 신청 | 누구나 보내기(생성만) / 관리자 |
 | `introCards/{id}_{a\|b}` | 각 회원에게 보여 줄 상대 요약(사진·나이·지역 등, 이름·연락처·자기PR 제외) | 해당 회원 / 관리자 |
 
 회원끼리는 서로의 정보를 볼 수 없습니다(소개된 상대의 요약만 예외). 관리자 화면의 데이터는 `admins`에 등록된 계정만 읽을 수 있으며, 이는 화면이 아니라 Firebase 서버의 보안 규칙으로 강제됩니다.
@@ -95,4 +108,4 @@ DNS 반영에는 수십 분~최대 하루 정도 걸릴 수 있습니다.
 npx firebase-tools emulators:start --only auth,firestore --project demo-kiokuyeon
 python -m http.server 5055
 ```
-브라우저에서 `http://localhost:5055/?emulator` (관리자 화면은 `admin.html?emulator`)를 엽니다.
+브라우저에서 `http://localhost:5055/ja/?emulator`(홈페이지), `join/?emulator`(회원), `admin.html?emulator`(관리자)를 엽니다. 테스트: `node tools/test_rules_site.mjs`(에뮬레이터 필요), `node tools/test_site_settings.mjs`, `python tools/check_site.py`.
