@@ -16,7 +16,7 @@ import templates  # noqa: E402
 LANGS = ['ja', 'ko', 'en']
 PAGES = list(templates.PAGES)
 NAV = ['about', 'service', 'flow', 'stories', 'column', 'faq', 'company']
-VERSION = '20261115a'
+VERSION = '20261115b'
 SITE = 'https://kiokuyeon.com'
 FONTS = {
     'ja': 'family=Noto+Serif+JP:wght@500;600',
@@ -122,8 +122,13 @@ def root_index(texts: dict) -> str:
 <link rel="stylesheet" href="/site/site.css?v={VERSION}">
 <script>
 (function () {{
+  // Old member-page links (/#mine, /#ask, /#intros, e-mail links with ?mode=…) belong to the member app.
+  if (/^#(mine|ask|intros)$/.test(location.hash) || /[?&](mode|oobCode)=/.test(location.search)) {{
+    location.replace('/join/' + location.search + location.hash);
+    return;
+  }}
   var ok = ['ja', 'ko', 'en'], l = null;
-  try {{ l = localStorage.getItem('kiokuyeon-lang'); }} catch (e) {{}}
+  try {{ l = localStorage.getItem('kiokuyeon-site-lang') || localStorage.getItem('kiokuyeon-lang'); }} catch (e) {{}}
   if (ok.indexOf(l) < 0) {{
     var n = (navigator.language || '').toLowerCase();
     l = n.indexOf('ko') === 0 ? 'ko' : n.indexOf('ja') === 0 ? 'ja' : n.indexOf('en') === 0 ? 'en' : 'ja';

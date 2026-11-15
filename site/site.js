@@ -11,10 +11,15 @@
   const lang = document.body.dataset.lang || 'ja';
 
   // ---------- language memory & menu
-  try { localStorage.setItem('kiokuyeon-lang', lang); } catch (e) { /* storage unavailable */ }
-  document.querySelectorAll('.langs a[data-lang]').forEach((a) => a.addEventListener('click', () => {
-    try { localStorage.setItem('kiokuyeon-lang', a.dataset.lang); } catch (e) { /* ignore */ }
-  }));
+  // The homepage remembers its own language (ja/ko/en). The member app only knows ja/ko, so it is told only those.
+  function remember(l) {
+    try {
+      localStorage.setItem('kiokuyeon-site-lang', l);
+      if (l === 'ja' || l === 'ko') localStorage.setItem('kiokuyeon-lang', l);
+    } catch (e) { /* storage unavailable */ }
+  }
+  remember(lang);
+  document.querySelectorAll('.langs a[data-lang]').forEach((a) => a.addEventListener('click', () => remember(a.dataset.lang)));
   const menuBtn = document.querySelector('.menu-btn');
   const gnav = document.getElementById('gnav');
   if (menuBtn && gnav) {

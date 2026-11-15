@@ -142,6 +142,7 @@
     st_addVideo: { ja: '動画を追加', ko: '영상 추가' }, up: { ja: '上へ', ko: '위로' },
     st_ins: { ja: '保証保険', ko: '보증보험' }, st_insAmount: { ja: '加入金額（ウォン）', ko: '가입금액(원)' },
     st_insFrom: { ja: '開始日', ko: '시작일' }, st_insTo: { ja: '終了日', ko: '종료일' },
+    st_insBad: { ja: '保証保険の加入金額・開始日・終了日をすべて正しく入力してください（開始日は終了日より前）。', ko: '보증보험 가입금액·시작일·종료일을 모두 올바르게 입력해 주세요(시작일은 종료일보다 앞).' },
     insWarn: { ja: '保証保険の終了日まで残り{n}日です。更新を確認し、サイト設定の期間を更新してください。', ko: '보증보험 종료일까지 {n}일 남았습니다. 갱신을 확인하고 사이트 설정의 기간을 고쳐 주세요.' },
     insExpired: { ja: '保証保険の期間が終了しています（ホームページでは非表示）。更新後、サイト設定の期間を更新してください。', ko: '보증보험 기간이 끝났습니다(홈페이지에서 숨김). 갱신 후 사이트 설정의 기간을 고쳐 주세요.' },
   });
@@ -971,7 +972,10 @@
         LANGS.forEach((l) => { const a = val(k + '-t-' + l), b = val(k + '-n-' + l); if (a) title[l] = a; if (b) note[l] = b; });
         videos.push({ youtubeId: id, country: val(k + '-country'), title, note, permission: true });
       }
+      const insAmount = Number(val('st-ins-amount')), insFrom = val('st-ins-from'), insTo = val('st-ins-to');
+      if (!(insAmount > 0) || !/^\d{4}-\d{2}-\d{2}$/.test(insFrom) || !/^\d{4}-\d{2}-\d{2}$/.test(insTo) || insFrom > insTo) return KC.toast(t('st_insBad'), true);
       const fv = val('st-free');
+      // This document is public (homepage reads it), so it holds no staff e-mail or uid.
       const data = {
         freeConsult: fv === '' ? null : fv === 'true',
         fees: readTri(f, 'st-fees'),
@@ -979,8 +983,7 @@
         staffInfo: readTri(f, 'st-staff'),
         japanOffice: { status: val('st-jp'), address: readTri(f, 'st-jpaddr') },
         videos,
-        insurance: { amount: Number(val('st-ins-amount')) || 0, from: val('st-ins-from'), to: val('st-ins-to') },
-        updatedAt: KC.ts(), updatedBy: user.email || user.uid,
+        insurance: { amount: insAmount, from: insFrom, to: insTo },
       };
       saveBtn.disabled = true;
       try { await ref.set(data); KC.toast(t('saved')); route(); }
