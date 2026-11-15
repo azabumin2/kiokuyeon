@@ -72,7 +72,7 @@ p { margin: 0 0 1em; }
 
 /* hero */
 .hero { position: relative; }
-.hero-img img { width: 100%; height: min(78vh, 680px); object-fit: cover; }
+.hero-img img { width: 100%; height: min(50vh, 440px); object-fit: cover; object-position: 50% 35%; }
 .hero-text { text-align: center; padding-top: 28px; padding-bottom: 36px; }
 .hero h1 { font-size: clamp(1.6rem, 5.2vw, 2.8rem); margin: 0 0 .5em; }
 .hero .sub { max-width: 34em; margin: 0 auto; color: var(--ink); }

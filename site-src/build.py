@@ -16,7 +16,7 @@ import templates  # noqa: E402
 LANGS = ['ja', 'ko', 'en']
 PAGES = list(templates.PAGES)
 NAV = ['about', 'service', 'flow', 'stories', 'column', 'faq', 'company']
-VERSION = '20261115b'
+VERSION = '20261115c'
 SITE = 'https://kiokuyeon.com'
 FONTS = {
     'ja': 'family=Noto+Serif+JP:wght@500;600',
