@@ -16,7 +16,7 @@ import templates  # noqa: E402
 LANGS = ['ja', 'ko', 'en']
 PAGES = list(templates.PAGES)
 NAV = ['about', 'service', 'flow', 'stories', 'column', 'faq', 'company']
-VERSION = '20261116f'
+VERSION = '20261117a'
 SITE = 'https://kiokuyeon.com'
 FONTS = {
     'ja': 'family=Noto+Serif+JP:wght@500;600;700;800',
@@ -74,7 +74,7 @@ def header(t: dict, lang: str, page: str) -> str:
         for l, n in LANG_NAMES)
     return f'''<header class="top">
 <div class="wrap bar">
-<a class="logo" href="{url(lang, 'index')}" aria-label="{templates.e(t['site_name'])}"><img src="/site/img/logo-bold.png" alt="{templates.e(t['logo_alt'])}" width="210" height="64"></a>
+<a class="logo" href="{url(lang, 'index')}" aria-label="{templates.e(t['site_name'])}"><img src="/site/img/logo-soft.png" alt="{templates.e(t['logo_alt'])}" width="232" height="59"></a>
 <nav class="langs" aria-label="Language">{langs}</nav>
 <a class="member" href="/join/">{t['member_btn']}</a>
 <button class="menu-btn" type="button" aria-expanded="false" aria-controls="gnav">{t['menu']}</button>
@@ -138,7 +138,7 @@ def root_index(texts: dict) -> str:
 </script>
 </head>
 <body class="chooser">
-<main class="wrap"><img src="/site/img/logo-bold.png" alt="기억・연 Kiokuyeon" width="280" height="85"><ul>{links}</ul>
+<main class="wrap"><img src="/site/img/logo-soft.png" alt="기억・연 Kiokuyeon" width="300" height="76"><ul>{links}</ul>
 <p><a href="/join/">会員ページ / 회원 페이지 / Members</a></p></main>
 </body>
 </html>
