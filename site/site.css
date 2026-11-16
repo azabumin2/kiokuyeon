@@ -191,3 +191,8 @@ body[data-page="contact"] .sticky-cta { display: none; }
 .doc img { width: 100%; height: auto; aspect-ratio: 990 / 1400; object-fit: contain; background: #fff; border-radius: 6px; }
 .doc figcaption { font-size: .8rem; color: var(--muted); text-align: center; margin-top: 8px; line-height: 1.5; }
 .doc a:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+
+/* hero: free for women members */
+.women-free { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; margin: 1.1em auto 0; padding: 10px 26px; border-radius: 18px; background: #A8665D; color: #fff; box-shadow: 0 6px 16px rgba(181, 120, 111, .25); }
+.women-free strong { font-size: clamp(1.05rem, 3.6vw, 1.3rem); letter-spacing: .04em; }
+.women-free span { font-size: .78rem; opacity: .95; }

@@ -33,6 +33,8 @@ T = {
     'hero_alt': 'A Korean–Japanese couple laughing together in a café',
     'hero_h': 'Different beginnings.<br>A future together.',
     'hero_sub': 'From meeting to dating and marriage, we stay by your side through differences in language and culture, and help your connection grow in your own way.',
+    'women_free': 'Free of charge for women members',
+    'women_free_sub': 'Fees for men are explained in a personal consultation',
     'free_badge': 'Personal consultations are free',
     'cta_book': 'Book a consultation',
     'cta_stories': 'See couple stories',

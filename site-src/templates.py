@@ -110,6 +110,7 @@ def japan_block(t: dict) -> str:
 def page_index(t: dict, lang: str) -> str:
     hero = (f'<section class="hero"><div class="hero-img"><img src="/site/img/hero.webp" alt="{e(t["hero_alt"])}" fetchpriority="high"></div>'
             f'<div class="hero-text wrap"><p class="eyebrow">{t["brand_line"]}</p><h1>{t["hero_h"]}</h1><p class="sub">{t["hero_sub"]}</p>'
+            f'<p class="women-free"><strong>{t["women_free"]}</strong><span>{t["women_free_sub"]}</span></p>'
             f'<p class="free" data-setting="freeConsult" hidden>{t["free_badge"]}</p>'
             f'<div class="btns"><a class="btn primary" href="/{lang}/contact.html#form">{t["cta_book"]}</a>'
             f'<a class="btn ghost" href="/{lang}/stories.html">{t["cta_stories"]}</a></div>'
