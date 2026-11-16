@@ -196,3 +196,8 @@ body[data-page="contact"] .sticky-cta { display: none; }
 .women-free { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; margin: 1.1em auto 0; padding: 10px 26px; border-radius: 18px; background: #A8665D; color: #fff; box-shadow: 0 6px 16px rgba(181, 120, 111, .25); }
 .women-free strong { font-size: clamp(1.05rem, 3.6vw, 1.3rem); letter-spacing: .04em; }
 .women-free span { font-size: .78rem; opacity: .95; }
+
+/* "KOREA CERTIFIED" heading on the top page — large and bold so it stands out */
+.cert-head { text-align: center; margin: 3.2em auto 0; max-width: 820px; }
+.cert-badge { display: inline-block; margin: 0 0 .8em; padding: 6px 20px; border-radius: 999px; background: #A8665D; color: #fff; font-family: var(--sans); font-weight: 700; font-size: .95rem; letter-spacing: .14em; }
+.cert-head h3 { font-family: var(--sans); font-weight: 800; font-size: clamp(1.45rem, 4.6vw, 2.3rem); line-height: 1.45; color: var(--navy); margin: 0; letter-spacing: .02em; }

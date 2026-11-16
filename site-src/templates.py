@@ -118,7 +118,7 @@ def page_index(t: dict, lang: str) -> str:
     videos = section('videos', t['videos_h'], video_block(t, 4), t['videos_sub'])
     trust = section('trust', t['trust_h'], cards([
         (t['trust1_h'], t['trust1_b']), (t['trust2_h'], t['trust2_b']), (t['trust3_h'], t['trust3_b']), (t['trust4_h'], t['trust4_b'])])
-        + f'<p class="eyebrow center mt">KOREA CERTIFIED</p><h3 class="center">{t["docs_h"]}</h3>' + docs_gallery(t),
+        + f'<div class="cert-head"><p class="cert-badge">KOREA CERTIFIED</p><h3>{t["docs_h"]}</h3></div>' + docs_gallery(t),
         t['trust_sub'])
     support = section('support', t['sup_h'],
                       f'<div class="split">{photo("walk.webp", t["walk_alt"], t)}<div>{para(t["sup_body"])}'
