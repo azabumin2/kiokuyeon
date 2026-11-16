@@ -217,3 +217,22 @@ body[data-page="contact"] .sticky-cta { display: none; }
   .gnav a { font-size: .9rem; }
 }
 .gnav .btn { display: flex; justify-content: center; color: #fff; }
+
+/* Section and card headings: bold and larger */
+h1, h2, h3 { font-weight: 700; }
+h2 { font-size: clamp(1.65rem, 4.6vw, 2.5rem); font-weight: 800; margin-bottom: .5em; }
+h3 { font-size: 1.28rem; }
+.card h3, .steps h3, .column h3 { font-size: 1.3rem; font-weight: 700; }
+.page-head h1 { font-size: clamp(1.75rem, 5.2vw, 2.6rem); font-weight: 800; }
+.lead { font-size: 1.05rem; }
+.faq summary { font-weight: 700; font-size: 1.05rem; }
+.v-body h3 { font-size: 1.1rem; }
+
+/* Bigger, bolder logo in the header */
+.logo img { width: 210px; }
+.bar { min-height: 76px; }
+@media (max-width: 640px) { .logo img { width: 168px; } }
+@media (max-width: 360px) { .logo img { width: 140px; } }
+/* Don't break Korean words across lines; Japanese headings break at natural phrases where supported */
+html:lang(ko) h1, html:lang(ko) h2, html:lang(ko) h3, html:lang(ko) p, html:lang(ko) li, html:lang(ko) summary { word-break: keep-all; overflow-wrap: anywhere; }
+html:lang(ja) h1, html:lang(ja) h2, html:lang(ja) h3 { word-break: auto-phrase; }
