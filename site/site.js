@@ -103,6 +103,7 @@
       card.hidden = !to || to < todayKST();
       const sec = card.closest('section.insurance'); // operator page: drop the whole section with the card
       if (sec) sec.hidden = card.hidden;
+      document.querySelectorAll('[data-ins-doc]').forEach((d) => { d.hidden = card.hidden; }); // expired policy image goes too
     });
     renderVideos(Array.isArray(s.videos) ? s.videos.filter((v) => v && v.permission === true && /^[A-Za-z0-9_-]{11}$/.test(v.youtubeId || '')) : []);
   }

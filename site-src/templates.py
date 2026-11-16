@@ -65,6 +65,16 @@ def company_table(t: dict) -> str:
     return f'<table class="info">{trs}</table>'
 
 
+def docs_gallery(t: dict) -> str:
+    """Registration / business / insurance certificates (personal details covered by tools/mask_docs.py)."""
+    items = [('doc-registration', 'doc_reg'), ('doc-business', 'doc_biz'), ('doc-insurance', 'doc_ins')]
+    figs = ''.join(
+        f'<figure class="doc"{" data-ins-doc" if k == "doc_ins" else ""}><a href="/site/img/{f}.webp" target="_blank" rel="noopener">'
+        f'<img src="/site/img/{f}.webp" alt="{e(t[k])}" loading="lazy" decoding="async" width="990" height="1400"></a>'
+        f'<figcaption>{t[k]}</figcaption></figure>' for f, k in items)
+    return f'<div class="docs">{figs}</div><p class="note center">{t["docs_note"]}</p>'
+
+
 def insurance_card(t: dict) -> str:
     # Shown only while the period in settings (or the default below) has not ended — see site.js.
     return (f'<div class="card insurance" data-setting="insurance" data-to="{FACTS["ins_to"]}">'
@@ -106,7 +116,8 @@ def page_index(t: dict, lang: str) -> str:
             f'<p class="img-note">{t["img_note"]}</p></div></section>')
     videos = section('videos', t['videos_h'], video_block(t, 4), t['videos_sub'])
     trust = section('trust', t['trust_h'], cards([
-        (t['trust1_h'], t['trust1_b']), (t['trust2_h'], t['trust2_b']), (t['trust3_h'], t['trust3_b']), (t['trust4_h'], t['trust4_b'])]),
+        (t['trust1_h'], t['trust1_b']), (t['trust2_h'], t['trust2_b']), (t['trust3_h'], t['trust3_b']), (t['trust4_h'], t['trust4_b'])])
+        + f'<p class="eyebrow center mt">KOREA CERTIFIED</p><h3 class="center">{t["docs_h"]}</h3>' + docs_gallery(t),
         t['trust_sub'])
     support = section('support', t['sup_h'],
                       f'<div class="split">{photo("walk.webp", t["walk_alt"], t)}<div>{para(t["sup_body"])}'
@@ -163,7 +174,8 @@ def page_faq(t: dict, lang: str) -> str:
 
 def page_company(t: dict, lang: str) -> str:
     return (section('company', t['co_h'], company_table(t) + f'<p class="note">{t["co_note"]}</p>')
-            + section('insurance', t['ins_sec_h'], insurance_card(t) + f'<div class="docs" data-docs></div>')
+            + section('certs', t['docs_h'], docs_gallery(t), t['docs_sub'])
+            + section('insurance', t['ins_sec_h'], insurance_card(t))
             + section('base', t['base_h'], f'<div class="card"><h3>{t["hq_h"]}</h3><p>{t["hq_b"]}</p></div>{japan_block(t)}'))
 
 

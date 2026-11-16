@@ -181,3 +181,13 @@ body[data-page="contact"] .sticky-cta { display: none; }
 .chooser ul { list-style: none; padding: 0; display: flex; gap: 14px; justify-content: center; margin: 24px 0; }
 .chooser ul a { display: inline-block; padding: 10px 22px; border: 1px solid var(--navy); border-radius: 999px; text-decoration: none; }
 .chooser img { margin: 0 auto; }
+
+/* registration / insurance certificates */
+.center { text-align: center; }
+.docs { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 1.2em auto 0; }
+@media (max-width: 640px) { .docs { grid-template-columns: 1fr 1fr; } .docs .doc:last-child { grid-column: 1 / -1; max-width: 50%; justify-self: center; } }
+.doc { margin: 0; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; box-shadow: 0 4px 14px rgba(38, 60, 80, .06); }
+.sec:nth-of-type(even) .doc { background: var(--ivory); }
+.doc img { width: 100%; height: auto; aspect-ratio: 990 / 1400; object-fit: contain; background: #fff; border-radius: 6px; }
+.doc figcaption { font-size: .8rem; color: var(--muted); text-align: center; margin-top: 8px; line-height: 1.5; }
+.doc a:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
