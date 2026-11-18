@@ -28,7 +28,7 @@ GitHub Pages(화면) + Firebase(Google 로그인·Firestore 데이터 저장)로
 | `photos/{key}` | 회원 사진(1,000px 이하 JPEG로 축소, 위치정보 제거) | 본인 / 관리자 |
 | `members/{id}` | 관리자가 관리하는 정식 회원 정보 + 관리 정보 | 관리자만 |
 | `members/{id}/records` | 상담·팔로우, 교제·매칭 기록 | 관리자만 |
-| `admins/{uid}` | 관리자 목록 | Firebase 콘솔에서만 추가·삭제 |
+| `admins/{uid}` | 관리자 목록(`name`, 메일 알림용 `email`) | Firebase 콘솔에서만 추가·삭제 |
 | `members/{id}/activity` | 직원 행동 이력(승인·소개·정지·소개 제외·답변) | 관리자만 |
 | `inquiries/{id}` | 회원의 1:1 문의·상담 예약·신고와 직원 답변 | 본인(읽기·보내기, 정지 시 불가) / 관리자 |
 | `intros/{id}` | 직원이 만든 소개와 양쪽 응답(이름 없음) | 소개된 두 회원(자기 응답 1회만) / 관리자 |
@@ -62,7 +62,7 @@ GitHub Pages(화면) + Firebase(Google 로그인·Firestore 데이터 저장)로
 
 ### 2. 첫 관리자 등록
 1. 사이트의 `admin.html`을 열고 직원용 Google 계정으로 로그인 → 「권한 없음」 화면에 **UID**가 표시됩니다.
-2. Firebase 콘솔 → Firestore → 컬렉션 시작 → 컬렉션 ID `admins`, 문서 ID에 그 **UID**, 필드 `name`(string)에 이름 입력 → 저장.
+2. Firebase 콘솔 → Firestore → 컬렉션 시작 → 컬렉션 ID `admins`, 문서 ID에 그 **UID**, 필드 `name`(string)에 이름, `email`(string)에 메일 주소 입력 → 저장. (`email`은 문의 메일 알림 대상, `tools/mail-notify/README.md` 참고)
 3. `admin.html`을 새로고침하면 관리자 화면이 열립니다. 다른 직원도 같은 방법으로 추가합니다.
 
 ### 3. GitHub Pages 공개

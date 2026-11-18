@@ -1,0 +1,30 @@
+# 회원 문의·상담·신고 메일 알림 (Google Apps Script)
+
+회원이 마이페이지에서 **1:1 문의 / 상담 예약 / 신고**를 보내면, 관리자에게 Gmail로 알림을 보냅니다.
+
+- **설치 완료(2026-11-18)**: azabumin@gmail.com의 Apps Script 프로젝트 「kiokuyeon メール通知」(스크립트 ID `13X739z39BFR3QiSc0wz1YMgPzFTuMVDZoCBaQh9F8MIiu-rLXNrV82VL`). Google Cloud 프로젝트 `kiokuyeon`(번호 131626121272)에 연결되어 있습니다.
+- 비용 없음: Firebase 무료 요금제 그대로 동작합니다.
+- 1분마다 새 문의를 확인하므로 **최대 1분 정도 늦게** 도착합니다.
+- 메일에는 종류·회원 이름·제목·(상담 예약이면) 희망 일시와 관리자 화면 링크만 들어갑니다. 본문과 연락처는 관리자 화면에서 확인합니다.
+- 신고는 제목이 「【至急・通報】」로 시작합니다.
+
+## 받는 사람
+
+- 스크립트 주인(azabumin@gmail.com)은 항상 받습니다.
+- 그 밖의 관리자는 Firestore `admins/{UID}` 문서의 **`email`** 필드(string)에 적힌 주소로 보냅니다.
+- **관리자를 추가할 때**: `admins/{UID}` 문서에 `name`과 함께 `email`도 넣어 주세요. 넣지 않으면 그 관리자는 관리자 화면은 쓸 수 있지만 메일 알림은 받지 않습니다.
+- 관리자 외의 주소도 받고 싶을 때: Apps Script 「プロジェクトの設定」 → 「スクリプト プロパティ」에 `EXTRA_RECIPIENTS`를 추가하고, 값에 메일 주소를 쉼표로 구분해 넣습니다.
+
+## 다시 설치해야 할 때 (참고)
+
+1. azabumin@gmail.com으로 https://script.google.com 에서 새 프로젝트를 만듭니다.
+2. 「プロジェクトの設定」에서 「"appsscript.json" マニフェスト ファイルをエディタで表示する」에 체크하고, 같은 화면의 「Google Cloud Platform（GCP）プロジェクト」 → 「プロジェクトを変更」에 **131626121272**를 넣어 연결합니다. 연결하지 않으면 Google이 「このアプリはブロックされます」로 막습니다.
+3. 에디터에서 `appsscript.json`과 `コード.gs`를 이 폴더의 `appsscript.json`, `Code.gs` 내용으로 바꾸고 저장합니다.
+4. `setup`을 실행 → 「権限を確認」 → azabumin@gmail.com → 「詳細」 → 「（安全ではないページ）に移動」 → 「すべて選択」 → 「続行」.
+5. 로그에 `Trigger created. Recipients: …`가 나오면 성공. `sendTestMail`로 테스트 메일을 보낼 수 있습니다.
+
+## 그 밖에
+
+- **알림을 멈추고 싶을 때**: 왼쪽 시계 아이콘 「トリガー」에서 `checkNewInquiries` 트리거를 삭제합니다. 다시 켜려면 `setup`을 실행합니다.
+- **오류가 났을 때**: 「実行数」에서 실패 기록을 볼 수 있습니다. 오류가 계속되면 Google이 오류 요약 메일을 azabumin@gmail.com으로 보냅니다.
+- **한도**: 무료 Gmail은 하루 받는 사람 합계 약 100명까지입니다. 관리자가 2명이면 하루 약 50건까지 알림을 보낼 수 있습니다.
