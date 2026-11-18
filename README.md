@@ -108,4 +108,4 @@ DNS 반영에는 수십 분~최대 하루 정도 걸릴 수 있습니다.
 npx firebase-tools emulators:start --only auth,firestore --project demo-kiokuyeon
 python -m http.server 5055
 ```
-브라우저에서 `http://localhost:5055/ja/?emulator`(홈페이지), `join/?emulator`(회원), `admin.html?emulator`(관리자)를 엽니다. 테스트: `node tools/test_rules_site.mjs`(에뮬레이터 필요), `node tools/test_site_settings.mjs`, `python tools/check_site.py`.
+브라우저에서 `http://localhost:5055/ja/?emulator`(홈페이지), `join/?emulator`(회원), `admin.html?emulator`(관리자)를 엽니다. 테스트: `node tools/test_rules_site.mjs`·`node tools/test_rules_members.mjs`(회원은 자기 정보만, 관리자만 남녀 회원 조회 — 에뮬레이터 필요), `node tools/test_site_settings.mjs`, `python tools/check_site.py`.

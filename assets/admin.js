@@ -6,7 +6,9 @@
   KC.addStrings({
     adminTitle: { ja: '管理者画面', ko: '관리자 화면' },
     adminLogin: { ja: 'スタッフ専用ページです。登録済みのGoogleアカウントでログインしてください。', ko: '직원 전용 페이지입니다. 등록된 Google 계정으로 로그인해 주세요.' },
-    notAdmin: { ja: 'このアカウントには管理者権限がありません。管理者に次のUIDを伝えて登録を依頼してください。', ko: '이 계정에는 관리자 권한이 없습니다. 관리자에게 아래 UID를 전달해 등록을 요청하세요.' },
+    notAdmin: { ja: '閲覧する権限がありません。会員の情報（男性会員・女性会員の一覧や詳細）は管理者だけが閲覧できます。', ko: '조회할 권한이 없습니다. 회원 정보（남성 회원·여성 회원 목록과 상세）는 관리자만 조회할 수 있습니다.' },
+    toMyPage: { ja: '会員のマイページへ', ko: '회원 마이페이지로' },
+    staffUidNote: { ja: 'スタッフの方は、管理者に次のUIDを伝えて登録を依頼してください。', ko: '직원이신 경우 관리자에게 아래 UID를 전달해 등록을 요청하세요.' },
     navHome: { ja: 'ホーム', ko: '홈' },
     navApps: { ja: '登録申請', ko: '등록 신청' },
     navWomen: { ja: '女性会員', ko: '여성 회원' },
@@ -203,8 +205,10 @@
         el('button', { type: 'button', onclick: () => KC.signIn().catch(KC.fail) }, t('login'))));
     }
     if (!isAdmin) {
+      // Shown to signed-in members: the data itself is protected by firestore.rules, this only explains why.
       return page(el('section', { class: 'card' }, el('h1', {}, t('adminTitle')), el('p', { class: 'alert' }, t('notAdmin')),
-        el('p', {}, 'UID: ', el('code', {}, user.uid)), el('p', {}, user.email || '')));
+        el('div', { class: 'actions' }, el('a', { class: 'button', href: 'join/' }, t('toMyPage'))),
+        el('p', { class: 'muted small', style: 'margin-top:24px' }, t('staffUidNote'), el('br'), 'UID: ', el('code', {}, user.uid), el('br'), user.email || '')));
     }
     const path = (location.hash.replace(/^#/, '').split('?')[0]) || '/';
     const parts = path.split('/').filter(Boolean);
