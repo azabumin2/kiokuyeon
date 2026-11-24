@@ -5,7 +5,9 @@
 Edit text in site-src/text_<lang>.py, structure in site-src/templates.py, then rebuild and commit the output.
 """
 import importlib.util
+import json
 import sys
+from datetime import date
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -24,6 +26,53 @@ FONTS = {
     'en': 'family=Inter:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@500;600;700;800',
 }
 LANG_NAMES = [('ko', '한국어'), ('ja', '日本語'), ('en', 'English')]
+
+# Google Search Console "HTML tag" verification: paste only the content="..." value here, then rebuild + push.
+# Empty = no tag is written.
+GOOGLE_SITE_VERIFICATION = ''
+# Other names people search for. They go into the structured data so Google ties them to this site.
+ALT_NAMES = ['기억・연', 'Kiokuyeon', 'キオクヨン', '記憶・縁', '未来結婚情報', '未来国際結婚情報', '日韓未来国際結婚情報',
+             '未来結婚情報ソウル', '미래결혼정보', '미래결혼정보 서울']
+# Public SNS profile URLs of this business (note, Instagram, TikTok, X, Threads). Add them when known.
+SAME_AS: list = []
+
+
+def structured_data(t: dict, lang: str) -> str:
+    """schema.org Organization + WebSite for the home page of each language."""
+    f = templates.FACTS
+    org = {
+        '@context': 'https://schema.org',
+        '@type': 'ProfessionalService',
+        '@id': f'{SITE}/#organization',
+        'name': '기억・연 Kiokuyeon',
+        'alternateName': ALT_NAMES,
+        'url': f'{SITE}/{lang}/',
+        'logo': f'{SITE}/site/img/logo.png',
+        'image': f'{SITE}/site/img/ogp.jpg',
+        'description': t['desc_index'],
+        'legalName': f['company'],
+        'founder': f['rep'],
+        'address': {'@type': 'PostalAddress', 'streetAddress': '새문안로5가길 11, 501호(내수동)',
+                    'addressLocality': '종로구', 'addressRegion': '서울특별시', 'addressCountry': 'KR'},
+        'areaServed': [{'@type': 'Country', 'name': 'Japan'}, {'@type': 'Country', 'name': 'South Korea'}],
+        'knowsLanguage': ['ja', 'ko'],
+    }
+    if SAME_AS:
+        org['sameAs'] = SAME_AS
+    site = {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        'name': '기억・연 Kiokuyeon',
+        'alternateName': ALT_NAMES[1:6],
+        'url': f'{SITE}/',
+        'inLanguage': lang,
+        'publisher': {'@id': f'{SITE}/#organization'},
+    }
+    return ''.join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>\n' for x in (org, site))
+
+
+def verification_tag() -> str:
+    return f'<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">\n' if GOOGLE_SITE_VERIFICATION else ''
 
 
 def load_text(lang: str) -> dict:
@@ -59,7 +108,7 @@ def head(t: dict, lang: str, page: str) -> str:
 <meta property="og:image" content="{SITE}/site/img/ogp.jpg">
 <meta property="og:locale" content="{ {'ja': 'ja_JP', 'ko': 'ko_KR', 'en': 'en_US'}[lang] }">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/site/img/icon.png">
+{verification_tag()}{structured_data(t, lang) if page == 'index' else ''}<link rel="icon" href="/site/img/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?{FONTS[lang]}&display=swap">
@@ -114,9 +163,9 @@ def root_index(texts: dict) -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>기억・연 Kiokuyeon | 記憶・縁 — 日韓国際結婚相談</title>
+<title>{templates.e(texts['ja']['site_title'])}</title>
 <meta name="description" content="{templates.e(texts['ja']['desc_index'])}">
-<link rel="canonical" href="{SITE}/">
+{verification_tag()}<link rel="canonical" href="{SITE}/">
 {alts}<link rel="alternate" hreflang="x-default" href="{SITE}/">
 <link rel="icon" href="/site/img/icon.png">
 <link rel="stylesheet" href="/site/site.css?v={VERSION}">
@@ -162,7 +211,27 @@ def build(out_dir: Path = ROOT) -> list:
     f = out_dir / 'index.html'
     f.write_text(root_index(texts), encoding='utf-8', newline='\n')
     written.append(f)
+    f = out_dir / 'sitemap.xml'
+    f.write_text(sitemap(), encoding='utf-8', newline='\n')
+    written.append(f)
+    f = out_dir / 'robots.txt'
+    f.write_text(f'User-agent: *\nDisallow: /admin.html\n\nSitemap: {SITE}/sitemap.xml\n', encoding='utf-8', newline='\n')
+    written.append(f)
     return written
+
+
+def sitemap() -> str:
+    """Every language page, with hreflang links to its other-language versions."""
+    today = date.today().isoformat()
+    rows = []
+    for l in LANGS:
+        for p in PAGES:
+            alts = ''.join(f'<xhtml:link rel="alternate" hreflang="{a}" href="{SITE}{url(a, p)}"/>' for a in LANGS)
+            prio = '1.0' if p == 'index' else '0.8' if p in ('contact', 'service', 'flow', 'faq') else '0.6'
+            rows.append(f'<url><loc>{SITE}{url(l, p)}</loc><lastmod>{today}</lastmod><priority>{prio}</priority>{alts}</url>')
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+            + '\n'.join(rows) + '\n</urlset>\n')
 
 
 if __name__ == '__main__':

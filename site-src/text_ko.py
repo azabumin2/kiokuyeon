@@ -1,7 +1,7 @@
 # Korean text for the Kiokuyeon homepage. Keys must match text_ja.py.
 T = {
     'site_name': '기억・연 Kiokuyeon',
-    'site_title': '기억・연 Kiokuyeon | 한일 국제결혼 상담 — 서로 다른 곳에서 시작된 두 사람, 함께할 내일을 만나다',
+    'site_title': '한일 국제결혼 상담 기억・연 Kiokuyeon(미래결혼정보) | 서로 다른 곳에서 시작된 두 사람, 함께할 내일을 만나다',
     'logo_alt': '기억・연 Kiokuyeon',
     'brand_line': '기억・연 ／ 한일 국제결혼 상담',
     'menu': '메뉴',
@@ -19,7 +19,7 @@ T = {
     'nav_company': '운영자 정보',
     'nav_contact': '개별 상담',
     'nav_privacy': '개인정보 처리방침·이용 조건',
-    'desc_index': '국제결혼중개업 등록 업체가 운영하는 한일 국제결혼 상담 「기억・연 Kiokuyeon」. 만남부터 교제, 결혼까지 말과 문화의 차이를 함께 넘어갑니다.',
+    'desc_index': '국제결혼중개업 등록 업체 미래결혼정보가 운영하는 한일 국제결혼 상담 「기억・연 Kiokuyeon」. 만남부터 교제, 결혼까지 말과 문화의 차이를 함께 넘어갑니다.',
     'desc_about': '「기억」과 「연」. 이름에 담은 마음과 저희가 소중히 여기는 것을 소개합니다.',
     'desc_service': '개별 상담, 서류 확인, 가치관을 중시한 소개, 말과 문화 차이에 대한 지원 등 서비스 내용입니다.',
     'desc_flow': '개별 상담부터 결혼 준비까지의 이용 절차와 요금, 계약처를 안내합니다.',
