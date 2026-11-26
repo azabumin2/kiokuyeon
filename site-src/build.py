@@ -90,7 +90,8 @@ def head(t: dict, lang: str, page: str) -> str:
     title = t['site_title'] if page == 'index' else f'{t["nav_" + page]} | {t["site_name"]}'
     desc = t['desc_' + page]
     alts = ''.join(f'<link rel="alternate" hreflang="{l}" href="{SITE}{url(l, page)}">' for l in LANGS)
-    alts += f'<link rel="alternate" hreflang="x-default" href="{SITE}/">'
+    # Japanese is the default for searchers whose language we don't serve (the root page only redirects).
+    alts += f'<link rel="alternate" hreflang="x-default" href="{SITE}{url("ja", page)}">'
     e = templates.e
     return f'''<!doctype html>
 <html lang="{lang}">
@@ -165,8 +166,10 @@ def root_index(texts: dict) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{templates.e(texts['ja']['site_title'])}</title>
 <meta name="description" content="{templates.e(texts['ja']['desc_index'])}">
-{verification_tag()}<link rel="canonical" href="{SITE}/">
-{alts}<link rel="alternate" hreflang="x-default" href="{SITE}/">
+{verification_tag()}<meta name="robots" content="noindex, follow">
+<!-- This page only sends visitors to /ja/ /ko/ /en/. Googlebot (English) lands on /en/, so Google treated
+     this page and /en/ as duplicates and dropped /en/; keeping it out of the index fixes that. -->
+{alts}<link rel="alternate" hreflang="x-default" href="{SITE}/ja/">
 <link rel="icon" href="/site/img/icon.png">
 <link rel="stylesheet" href="/site/site.css?v={VERSION}">
 <script>
